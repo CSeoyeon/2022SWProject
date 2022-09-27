@@ -15,11 +15,22 @@
         android:id="@+id/navigation_userBoard"
         android:name="com.example.a2022swproject.mainFunction.userBoard.BoardFragment.WritingBoardFragment"
         android:label="@string/title_userBoard"
-        tools:layout="@layout/fragment_writingboard" />
+        tools:layout="@layout/fragment_writingboard" >
+        <action
+            android:id="@+id/action_navigation_userBoard_to_navigation_boarList"
+            app:destination="@id/navigation_boarList" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_userInformation"
         android:name="com.example.a2022swproject.mainFunction.userInformation.UserInformationFragment"
         android:label="@string/title_userInformation"
         tools:layout="@layout/fragment_userinformation" />
+
+    <fragment
+        android:id="@+id/navigation_boarList"
+        android:name="com.example.a2022swproject.mainFunction.userBoard.BoardFragment.BoardListFragment"
+        android:label="BoardList"
+        tools:layout="@layout/fragment_boardlist" />
+
 </navigation>
