@@ -23,14 +23,12 @@ public class WritingBoardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        WritingBoardViewModel writingBoardViewModel =
-                new ViewModelProvider(this).get(WritingBoardViewModel.class);
-
+        WritingBoardViewModel writingBoardViewModel = new ViewModelProvider(this).get(WritingBoardViewModel.class);
         binding = FragmentWritingboardBinding.inflate(inflater, container, false);
         navController = NavHostFragment.findNavController(WritingBoardFragment.this);
 
 
-          return binding.getRoot();
+        return binding.getRoot();
     }
 
     @Override
