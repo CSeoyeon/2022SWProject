@@ -25,8 +25,7 @@ public class HomeMapFragment extends Fragment {
         binding = FragmentHomemapBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        homeMapViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 
