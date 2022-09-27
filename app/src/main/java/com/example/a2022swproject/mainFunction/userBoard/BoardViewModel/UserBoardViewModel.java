@@ -1,4 +1,4 @@
-package com.example.a2022swproject.bottomNav.userBoard;
+package com.example.a2022swproject.mainFunction.userBoard.BoardViewModel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

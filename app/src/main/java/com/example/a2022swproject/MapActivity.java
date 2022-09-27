@@ -1,12 +1,8 @@
 package com.example.a2022swproject;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,18 +13,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.a2022swproject.databinding.ActivityMainBinding;
+import com.example.a2022swproject.databinding.FragmentHomemapBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
-import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity  extends AppCompatActivity implements OnMapReadyCallback {
 
-    private ActivityMainBinding binding;
+    private FragmentHomemapBinding binding;
 
     private MapView mapView;
     private static NaverMap map_naverMap;
@@ -45,16 +42,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = FragmentHomemapBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_homeMap, R.id.navigation_userBoard, R.id.navigation_userInformation)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
 
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
@@ -84,17 +73,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-         if(fusedLocationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)){
-             if(!fusedLocationSource.isActivated()){
-                 map_naverMap.setLocationTrackingMode(LocationTrackingMode.None);
-                 Log.v("위치 파악 못함", "" );
-                 return;
-             }
-             else{
-                 map_naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
-                 Log.v("위치 파악함", "" );
-             }
-         }
+        if(fusedLocationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)){
+            if(!fusedLocationSource.isActivated()){
+                map_naverMap.setLocationTrackingMode(LocationTrackingMode.None);
+                Log.v("위치 파악 못함", "" );
+                return;
+            }
+            else{
+                map_naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+                Log.v("위치 파악함", "" );
+            }
+        }
         /*if(requestCode == PERMISSION_REQUEST_CODE){
             if(grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
@@ -145,5 +134,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onDestroy();
         mapView.onDestroy();
     }
+
+
 
 }

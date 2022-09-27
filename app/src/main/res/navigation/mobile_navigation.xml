@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_homeMap"
-        android:name="com.example.a2022swproject.bottomNav.homeMap.HomeMapFragment"
+        android:name="com.example.a2022swproject.mainFunction.homeMap.HomeMapFragment"
         android:label="@string/title_homeMap"
         tools:layout="@layout/fragment_homemap" />
 
     <fragment
         android:id="@+id/navigation_userBoard"
-        android:name="com.example.a2022swproject.bottomNav.userBoard.UserBoardFragment"
+        android:name="com.example.a2022swproject.mainFunction.userBoard.BoardFragment.UserBoardFragment"
         android:label="@string/title_userBoard"
         tools:layout="@layout/fragment_userboard" />
 
     <fragment
         android:id="@+id/navigation_userInformation"
-        android:name="com.example.a2022swproject.bottomNav.userInformation.UserInformationFragment"
+        android:name="com.example.a2022swproject.mainFunction.userInformation.UserInformationFragment"
         android:label="@string/title_userInformation"
         tools:layout="@layout/fragment_userinformation" />
 </navigation>

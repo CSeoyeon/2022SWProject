@@ -1,4 +1,4 @@
-package com.example.a2022swproject.bottomNav.userInformation;
+package com.example.a2022swproject.mainFunction.userInformation;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
