@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_userBoard"
-        android:name="com.example.a2022swproject.mainFunction.userBoard.BoardFragment.UserBoardFragment"
+        android:name="com.example.a2022swproject.mainFunction.userBoard.BoardFragment.WritingBoardFragment"
         android:label="@string/title_userBoard"
-        tools:layout="@layout/fragment_userboard" />
+        tools:layout="@layout/fragment_writingboard" />
 
     <fragment
         android:id="@+id/navigation_userInformation"

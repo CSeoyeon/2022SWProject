@@ -24,8 +24,6 @@ public class UserInformationFragment extends Fragment {
         binding = FragmentUserinformationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        userInformationViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
