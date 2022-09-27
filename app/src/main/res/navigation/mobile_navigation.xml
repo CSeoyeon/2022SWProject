@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_homeMap">
+
+    <fragment
+        android:id="@+id/navigation_homeMap"
+        android:name="com.example.a2022swproject.bottomNav.homeMap.HomeMapFragment"
+        android:label="@string/title_homeMap"
+        tools:layout="@layout/fragment_homemap" />
+
+    <fragment
+        android:id="@+id/navigation_userBoard"
+        android:name="com.example.a2022swproject.bottomNav.userBoard.UserBoardFragment"
+        android:label="@string/title_userBoard"
+        tools:layout="@layout/fragment_userboard" />
+
+    <fragment
+        android:id="@+id/navigation_userInformation"
+        android:name="com.example.a2022swproject.bottomNav.userInformation.UserInformationFragment"
+        android:label="@string/title_userInformation"
+        tools:layout="@layout/fragment_userinformation" />
+</navigation>
