@@ -1,4 +1,4 @@
-package com.example.a2022swproject.bottomNav.homeMap;
+package com.example.a2022swproject.mainFunction.homeMap;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

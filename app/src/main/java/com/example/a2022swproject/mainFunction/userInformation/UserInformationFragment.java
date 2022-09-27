@@ -1,4 +1,4 @@
-package com.example.a2022swproject.bottomNav.userInformation;
+package com.example.a2022swproject.mainFunction.userInformation;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
