@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_homeMap"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/navigation_cart"
         android:title="재활용품 찾기" />
 
     <item
         android:id="@+id/navigation_userBoard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/navigation_edit"
         android:title="내 게시글 작성" />
 
     <item
         android:id="@+id/navigation_userInformation"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/navigation_user"
         android:title="유저 정보" />
 
 </menu>

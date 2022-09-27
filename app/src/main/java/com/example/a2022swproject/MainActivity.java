@@ -9,6 +9,7 @@ import android.util.Log;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mapView.getMapAsync(this);
         fusedLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
-
 
     }
 
