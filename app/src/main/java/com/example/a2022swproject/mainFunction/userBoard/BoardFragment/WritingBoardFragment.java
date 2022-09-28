@@ -32,7 +32,7 @@ public class WritingBoardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        WritingBoardViewModel writingBoardViewModel = new ViewModelProvider(this).get(WritingBoardViewModel.class);
+        writingBoardViewModel = new ViewModelProvider(this).get(WritingBoardViewModel.class);
         binding = FragmentWritingboardBinding.inflate(inflater, container, false);
         navController = NavHostFragment.findNavController(WritingBoardFragment.this);
 
@@ -60,9 +60,16 @@ public class WritingBoardFragment extends Fragment {
         bt_writing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String boardNumber = "1";
+                String writerId = "1";
 
+                String title = "1";
+                String latitude = "1";
+                String longitude = "1";
 
-                navController.navigate(R.id.action_navigation_userBoard_to_navigation_boarList);
+                writingBoardViewModel.setBoard(boardNumber, writerId, title, latitude, longitude);
+                writingBoardViewModel.tryWriting(writingBoardViewModel.getBoard());
+                //navController.navigate(R.id.action_navigation_userBoard_to_navigation_boarList);
             }
         });
     }
