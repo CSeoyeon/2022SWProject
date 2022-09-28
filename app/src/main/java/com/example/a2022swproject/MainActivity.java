@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -32,15 +33,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private ActivityMainBinding binding;
 
     private MapView mapView;
-    private static NaverMap map_naverMap;
-
-    //location marker
+    private static NaverMap naverMap;
+    private double latitude, longitude;
+    
     private static final int PERMISSION_REQUEST_CODE =1000;
-    private static final String[] PERMISSIONS = {
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-    };
-    private FusedLocationSource fusedLocationSource;
+    private FusedLocationSource locationSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,46 +58,52 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.onCreate(savedInstanceState);
 
         mapView.getMapAsync(this);
-        fusedLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
+        locationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
 
     }
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
 
-        this.map_naverMap = naverMap;
-        map_naverMap.setLocationSource(fusedLocationSource);
-        ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE);
-        naverMap.setLocationSource(fusedLocationSource);
+        this.naverMap = naverMap;
+        naverMap.setLocationSource(locationSource);
+        naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+        
+        //위도 경도 받아오기
+        naverMap.addOnLocationChangeListener(new NaverMap.OnLocationChangeListener(){
+            @Override
+            public void onLocationChange(@NonNull Location location) {
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+                
+                Log.v("위도, 경도:" ,"" + latitude + ", " +longitude);
+
+            }
+        });
+
 
         //마커 표시
         Marker marker = new Marker();
         marker.setPosition(new LatLng(36.80040160733433,  127.07508644619917));
         marker.setMap(naverMap);
 
-
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-         if(fusedLocationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)){
-             if(!fusedLocationSource.isActivated()){
-                 map_naverMap.setLocationTrackingMode(LocationTrackingMode.None);
+         if(locationSource.onRequestPermissionsResult(
+                 requestCode, permissions, grantResults)){
+             if(!locationSource.isActivated()){
+                 naverMap.setLocationTrackingMode(LocationTrackingMode.None);
                  Log.v("위치 파악 못함", "" );
                  return;
              }
              else{
-                 map_naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+                 naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
                  Log.v("위치 파악함", "" );
              }
          }
-        /*if(requestCode == PERMISSION_REQUEST_CODE){
-            if(grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                map_naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
-            }
-        }*/
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
