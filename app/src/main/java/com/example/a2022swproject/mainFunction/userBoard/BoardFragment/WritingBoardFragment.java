@@ -1,6 +1,7 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardFragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +12,18 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.a2022swproject.MainActivity;
 import com.example.a2022swproject.R;
 import com.example.a2022swproject.databinding.FragmentWritingboardBinding;
 import com.example.a2022swproject.mainFunction.userBoard.BoardViewModel.WritingBoardViewModel;
+import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.NaverMap;
+import com.naver.maps.map.overlay.Marker;
 
 public class WritingBoardFragment extends Fragment {
 
@@ -63,13 +69,21 @@ public class WritingBoardFragment extends Fragment {
                 String boardNumber = "1";
                 String writerId = "1";
 
-                String title = "1";
-                String latitude = "1";
-                String longitude = "1";
+                String title = et_title.getText().toString();
+                String latitude =  String.valueOf(((MainActivity)getActivity()).getLatitude());
+                String longitude = String.valueOf(((MainActivity)getActivity()).getLongitude());
 
                 writingBoardViewModel.setBoard(boardNumber, writerId, title, latitude, longitude);
                 writingBoardViewModel.tryWriting(writingBoardViewModel.getBoard());
-                //navController.navigate(R.id.action_navigation_userBoard_to_navigation_boarList);
+
+                writingBoardViewModel.getwritedComplete().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        ((MainActivity)getActivity()).setMarker();
+                        navController.navigate(R.id.action_navigation_userBoard_to_navigation_boarList);
+                    }
+                });
+
             }
         });
     }
