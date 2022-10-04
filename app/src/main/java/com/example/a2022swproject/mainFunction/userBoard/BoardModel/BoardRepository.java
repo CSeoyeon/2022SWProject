@@ -63,7 +63,7 @@ public class BoardRepository {
         imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
         //boardNumber 수정 해야함
-        StorageReference uploadRef = boardImgStorage.getReference().child("boardImages/boardNumber_1" + ".jpg");
+        StorageReference uploadRef = boardImgStorage.getReference().child("boardImages/boardNumber_2" + ".jpg");
         UploadTask uploadTask = uploadRef.putBytes(data);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {

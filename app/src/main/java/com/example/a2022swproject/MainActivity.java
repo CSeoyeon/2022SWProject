@@ -2,6 +2,7 @@ package com.example.a2022swproject;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,9 @@ import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import java.io.IOException;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private ActivityMainBinding binding;
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MapView mapView;
     private static NaverMap naverMap;
     private static double latitude, longitude;
+    private String address = "현재 위치를 받아 오지 못하였습니다.";
 
     private static final int PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
@@ -88,6 +93,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public double getLongitude() {
         return longitude;
+    }
+
+    //longitude, latitude -> String address
+    private String AddressToString(double latitude, double longitude){
+        Geocoder geocoder = new Geocoder(this, Locale.KOREA);
+        try {
+            address = geocoder.getFromLocation(latitude, longitude, 1).get(0).getAddressLine(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return address;
+    }
+
+    public String getAddress(){
+        return AddressToString(latitude, longitude);
     }
 
     public void setMarker() {

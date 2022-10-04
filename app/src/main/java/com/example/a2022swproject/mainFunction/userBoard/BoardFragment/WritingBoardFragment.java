@@ -42,6 +42,7 @@ public class WritingBoardFragment extends Fragment {
 
     private EditText et_title;
     private EditText et_location;
+    private Button bt_locationFind;
     private ImageButton imgBtn_addImg;
     private Button bt_writing;
 
@@ -53,6 +54,7 @@ public class WritingBoardFragment extends Fragment {
 
         et_title = binding.writingBoardEtTitle;
         et_location = binding.writingBoardEtLocation;
+        bt_locationFind = binding.writingBoardBtLocationFind;
         imgBtn_addImg = binding.writingBoardImgbtnAddImg;
         bt_writing = binding.writingBoardBtWriting;
 
@@ -61,6 +63,26 @@ public class WritingBoardFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+
+        Log.v("현재 위치 장소명: " + ((MainActivity)getActivity()).getAddress() ,"'");
+        Log.v("현재위치 경도 위도: "
+                +((MainActivity)getActivity()).getLatitude()
+                +
+                ", "
+                + ((MainActivity)getActivity()).getLongitude()
+
+                , "");
+
+        bt_locationFind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                et_location.setText("");
+                et_location.setText(
+                        ((MainActivity)getActivity()).getAddress()
+                );
+            }
+        });
 
 
         //add image
@@ -90,8 +112,6 @@ public class WritingBoardFragment extends Fragment {
 
             }
         });
-
-
 
 
         //writing
