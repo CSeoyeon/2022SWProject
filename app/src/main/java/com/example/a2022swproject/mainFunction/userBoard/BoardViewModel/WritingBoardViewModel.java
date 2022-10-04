@@ -24,12 +24,13 @@ public class WritingBoardViewModel extends ViewModel {
     public WritingBoardViewModel() {
     }
 
-    public void setBoard(String boardNumber, String writerId, String title, String latitude, String longitude) {
+    public void setBoard(String boardNumber, String writerId, String title, String latitude, String longitude, String address) {
         board.setBoardNumber(boardNumber);
         board.setWriterId(writerId);
         board.setTitle(title);
         board.setLatitude(latitude);
         board.setLongitude(longitude);
+        board.setLocation(address);
     }
 
     //게시글 작성

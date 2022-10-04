@@ -10,6 +10,7 @@ public class Board {
     private String title;
     private String latitude;
     private String longitude;
+    private String location;
 
     public Board(){}
 
@@ -51,6 +52,14 @@ public class Board {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @NonNull

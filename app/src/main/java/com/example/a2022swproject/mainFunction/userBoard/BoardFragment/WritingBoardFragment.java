@@ -64,16 +64,7 @@ public class WritingBoardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-
-        Log.v("현재 위치 장소명: " + ((MainActivity)getActivity()).getAddress() ,"'");
-        Log.v("현재위치 경도 위도: "
-                +((MainActivity)getActivity()).getLatitude()
-                +
-                ", "
-                + ((MainActivity)getActivity()).getLongitude()
-
-                , "");
-
+        //get String address
         bt_locationFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,8 +115,9 @@ public class WritingBoardFragment extends Fragment {
                 String title = et_title.getText().toString();
                 String latitude =  String.valueOf(((MainActivity)getActivity()).getLatitude());
                 String longitude = String.valueOf(((MainActivity)getActivity()).getLongitude());
+                String address = ((MainActivity)getActivity()).getAddress();
 
-                writingBoardViewModel.setBoard(boardNumber, writerId, title, latitude, longitude);
+                writingBoardViewModel.setBoard(boardNumber, writerId, title, latitude, longitude, address);
                 writingBoardViewModel.tryWriting(writingBoardViewModel.getBoard());
 
                 writingBoardViewModel.getwritedComplete().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
