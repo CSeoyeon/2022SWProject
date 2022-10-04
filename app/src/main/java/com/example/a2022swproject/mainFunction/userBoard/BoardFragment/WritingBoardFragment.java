@@ -1,6 +1,11 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardFragment;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -33,7 +42,7 @@ public class WritingBoardFragment extends Fragment {
 
     private EditText et_title;
     private EditText et_location;
-    private ImageButton imgBtn_addImag;
+    private ImageButton imgBtn_addImg;
     private Button bt_writing;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -44,7 +53,7 @@ public class WritingBoardFragment extends Fragment {
 
         et_title = binding.writingBoardEtTitle;
         et_location = binding.writingBoardEtLocation;
-        imgBtn_addImag = binding.writingBoardImgbtnAddImg;
+        imgBtn_addImg = binding.writingBoardImgbtnAddImg;
         bt_writing = binding.writingBoardBtWriting;
 
         return binding.getRoot();
@@ -54,15 +63,38 @@ public class WritingBoardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
 
-        //이미지 추가
-        imgBtn_addImag.setOnClickListener(new View.OnClickListener() {
+        //add image
+        ActivityResultLauncher<Intent> launchGallery = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>()
+                {
+                    @Override
+                    public void onActivityResult(ActivityResult result)
+                    {
+                        if(result.getResultCode() == Activity.RESULT_OK)
+                        {
+                            Uri selectedImage = result.getData().getData();
+                            imgBtn_addImg.setImageURI(selectedImage);
+                            writingBoardViewModel.setImgBitmap(((BitmapDrawable)imgBtn_addImg.getDrawable()).getBitmap());
+                            imgBtn_addImg.invalidate();
+                        }
+                    }
+                });
+
+        imgBtn_addImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                launchGallery.launch(intent);
 
             }
         });
 
-        //작성버튼
+
+
+
+        //writing
         bt_writing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

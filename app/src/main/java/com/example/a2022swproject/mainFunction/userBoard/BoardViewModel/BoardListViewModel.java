@@ -1,4 +1,6 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardViewModel;
 
-public class BoardListViewModel {
+import androidx.lifecycle.ViewModel;
+
+public class BoardListViewModel extends ViewModel {
 }

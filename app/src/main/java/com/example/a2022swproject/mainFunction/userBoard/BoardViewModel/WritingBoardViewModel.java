@@ -1,5 +1,7 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardViewModel;
 
+import android.graphics.Bitmap;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -16,10 +18,13 @@ public class WritingBoardViewModel extends ViewModel {
     private final MutableLiveData<Boolean> writedCompleted = new MutableLiveData<>(false);
 
     private Board board = new Board();
+    private Bitmap imgBitmap;
 
-    public WritingBoardViewModel() {}
 
-    public void setBoard(String boardNumber, String writerId, String title, String latitude, String longitude){
+    public WritingBoardViewModel() {
+    }
+
+    public void setBoard(String boardNumber, String writerId, String title, String latitude, String longitude) {
         board.setBoardNumber(boardNumber);
         board.setWriterId(writerId);
         board.setTitle(title);
@@ -29,7 +34,7 @@ public class WritingBoardViewModel extends ViewModel {
 
     //게시글 작성
     public void tryWriting(Board board) {
-        boardRepository.writeBoard(board, new SingleCallBack<Result<Board>>() {
+        boardRepository.writeBoard(board, imgBitmap, new SingleCallBack<Result<Board>>() {
             @Override
             public void onComplete(Result<Board> result) {
                 if (result instanceof Result.Success) {
@@ -40,11 +45,17 @@ public class WritingBoardViewModel extends ViewModel {
         });
     }
 
-    public Board getBoard(){
+    public void setImgBitmap(Bitmap bitmap) {
+        this.imgBitmap = bitmap;
+    }
+
+    public Board getBoard() {
         return board;
     }
 
     public LiveData<Boolean> getwritedComplete() {
         return writedCompleted;
     }
+
+
 }
