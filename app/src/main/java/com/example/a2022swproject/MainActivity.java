@@ -6,6 +6,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -49,6 +52,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menuicon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -133,6 +142,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
+    //appBar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.appbar_nav_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.navigation_userBoard:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

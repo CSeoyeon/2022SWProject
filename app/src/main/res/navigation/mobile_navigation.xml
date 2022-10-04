@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_writingboard" >
         <action
             android:id="@+id/action_navigation_userBoard_to_navigation_boarList"
-            app:destination="@id/navigation_boarList" />
+            app:destination="@id/navigation_boardList" />
     </fragment>
 
     <fragment
@@ -28,7 +28,7 @@
         tools:layout="@layout/fragment_userinformation" />
 
     <fragment
-        android:id="@+id/navigation_boarList"
+        android:id="@+id/navigation_boardList"
         android:name="com.example.a2022swproject.mainFunction.userBoard.BoardFragment.BoardListFragment"
         android:label="BoardList"
         tools:layout="@layout/fragment_boardlist" />
