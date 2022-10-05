@@ -82,7 +82,7 @@ public class BoardRepository {
     }
 
     //게시판 불러오기
-    public void getBoard(SingleCallBack<Result<Board>> callBack){
+    public void getBoard(SingleCallBack<Result<ArrayList>> callBack){
         boardRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -95,7 +95,6 @@ public class BoardRepository {
                             }
                             boardList = tmpBoard;
                             callBack.onComplete(new Result.Success<ArrayList<Board>>(boardList));
-
                         }
                     }
                 })

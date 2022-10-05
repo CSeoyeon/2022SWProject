@@ -1,6 +1,7 @@
 package com.example.a2022swproject;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.Location;
@@ -11,12 +12,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.a2022swproject.mainFunction.userBoard.BoardFragment.BoardListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -155,8 +159,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        BoardListFragment boardListFragment = new BoardListFragment();
         switch(item.getItemId()){
-            case R.id.navigation_userBoard:
+            case R.id.navigation_boardList:
+                Log.v("눌러지긴 함", "");
+                transaction.replace(R.id.nav_host_fragment_activity_main, boardListFragment).commit();
                 break;
         }
         return super.onOptionsItemSelected(item);

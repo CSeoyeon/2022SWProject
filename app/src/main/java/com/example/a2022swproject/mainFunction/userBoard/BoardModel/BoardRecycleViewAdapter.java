@@ -1,6 +1,7 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardModel;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -23,14 +24,16 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(ObjectBoarditemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+    public BoardRecycleViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new BoardRecycleViewAdapter.ViewHolder(ObjectBoarditemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String title = records.get(position).getTitle();
         holder.tv_title.setText(title);
+
+        //holder.tv_title.setText("ewtwerterraeteat");
 
     }
 
@@ -43,10 +46,15 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
     public class ViewHolder extends RecyclerView.ViewHolder {
         protected TextView tv_title;
 
-        public ViewHolder(ObjectBoarditemBinding binding) {
+
+        public ViewHolder(@NonNull ObjectBoarditemBinding binding) {
             super(binding.getRoot());
             tv_title = binding.boardItemTvTitle;
+        }
 
+        @Override
+        public String toString() {
+            return super.toString();
         }
     }
 }

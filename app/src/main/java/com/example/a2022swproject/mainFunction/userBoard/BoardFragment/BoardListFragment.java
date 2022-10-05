@@ -42,6 +42,8 @@ public class BoardListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+
+
         //board list
         frameLayout.setVisibility(View.VISIBLE);
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();

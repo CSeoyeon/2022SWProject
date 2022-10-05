@@ -17,6 +17,7 @@
         android:theme="@style/Theme.2022SWProject"
         tools:targetApi="31"
         >
+        <!---->
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

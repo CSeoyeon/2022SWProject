@@ -1,6 +1,7 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardFragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class BoardItemListFragment extends Fragment {
         binding = FragmentBoarditemlistBinding.inflate(inflater, container, false);
         rv_boardView = binding.boardItemListRvBoardList;
 
+
         return binding.getRoot();
     }
 
@@ -51,7 +53,6 @@ public class BoardItemListFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     boardRecycleViewAdapter = new BoardRecycleViewAdapter(boardItemListViewModel.getBoardArrayList());
-
                     rv_boardView.setAdapter(boardRecycleViewAdapter);
                     rv_boardView.setLayoutManager(new LinearLayoutManager(requireContext()));
                     boardRecycleViewAdapter.notifyDataSetChanged();
