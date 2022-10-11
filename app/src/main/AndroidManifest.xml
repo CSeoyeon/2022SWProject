@@ -20,7 +20,7 @@
         <activity
             android:name=".AccountActivity"
             android:exported="true"
-            android:launchMode = "singleTop"
+            android:launchMode = "singleInstance"
             android:label="2022swproject">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -87,6 +87,7 @@ public class SignInFragment extends Fragment {
                     authViewModel.signIn(email , password);
 
                     Intent intent = new Intent(getContext(), MainActivity.class);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
                 }
             }
