@@ -27,6 +27,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.a2022swproject.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
@@ -43,6 +44,9 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private ActivityMainBinding binding;
+
+    //fire auth
+   FirebaseAuth mAuth;
 
     private MapView mapView;
     private static NaverMap naverMap;

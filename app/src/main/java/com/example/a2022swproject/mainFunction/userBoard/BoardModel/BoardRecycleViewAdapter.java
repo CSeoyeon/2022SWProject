@@ -1,8 +1,10 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardModel;
 
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,12 +46,17 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        protected ImageView iv_userIcon;
+        protected TextView tv_userName;
         protected TextView tv_title;
-
+        protected ImageView iv_boardImage;
 
         public ViewHolder(@NonNull ObjectBoarditemBinding binding) {
             super(binding.getRoot());
+            iv_userIcon = binding.boardItemIvUserIcon;
+            tv_userName = binding.boardItemTvUserName;
             tv_title = binding.boardItemTvTitle;
+            iv_boardImage = binding.boardItemIvBoardImage;
         }
 
         @Override
