@@ -109,7 +109,7 @@ public class WritingBoardFragment extends Fragment {
         bt_writing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String boardNumber = "1";
+                String boardNumber = "2";
                 String writerId = "1";
 
                 String title = et_title.getText().toString();
