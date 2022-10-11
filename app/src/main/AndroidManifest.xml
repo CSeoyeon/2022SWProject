@@ -17,12 +17,6 @@
         android:theme="@style/Theme.2022SWProject"
         tools:targetApi="31"
         >
-        <!---->
-
-        <meta-data
-            android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="597uigbp2b" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -33,6 +27,12 @@
             </intent-filter>
 
         </activity>
+
+        <activity android:name=".AccountActivity"/>
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="597uigbp2b" />
+
     </application>
 
 </manifest>
