@@ -1,5 +1,6 @@
 package com.example.a2022swproject.account.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavHostController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.a2022swproject.MainActivity;
 import com.example.a2022swproject.R;
 import com.example.a2022swproject.account.viewmodel.AuthViewModel;
 import com.example.a2022swproject.databinding.FragmentSigninBinding;
@@ -83,6 +85,9 @@ public class SignInFragment extends Fragment {
                 if (!email.isEmpty() && !password.isEmpty()){
                     Log.v("sign in ","성공");
                     authViewModel.signIn(email , password);
+
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -93,6 +98,7 @@ public class SignInFragment extends Fragment {
                 navController.navigate(R.id.action_navigation_signIn_to_navigation_signUp);
             }
         });
+
 
 
     }

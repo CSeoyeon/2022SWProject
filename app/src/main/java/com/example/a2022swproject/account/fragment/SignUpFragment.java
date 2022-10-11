@@ -41,7 +41,7 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
                 if (firebaseUser != null){
-                    navController.navigate(R.id.action_navigation_signUp_to_navigation_signIn);
+                    //navController.navigate(R.id.action_navigation_signUp_to_navigation_signIn);
                 }
             }
         });

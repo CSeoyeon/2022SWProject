@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private ActivityMainBinding binding;
 
-    //fire auth
-   FirebaseAuth mAuth;
-
     private MapView mapView;
     private static NaverMap naverMap;
     private static double latitude, longitude;
@@ -61,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(this,AccountActivity.class);
+        Intent intent = new Intent(this, AccountActivity.class);
         startActivity(intent);
 
         ActionBar actionBar = getSupportActionBar();

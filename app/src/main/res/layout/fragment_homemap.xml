@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".mainFunction.homeMap.HomeMapFragment">
 
-
     <!--네이버 지도-->
     <com.naver.maps.map.MapView
         android:id="@+id/map_view"
