@@ -47,7 +47,6 @@ public class SignInFragment extends Fragment {
                 if (firebaseUser != null){
                     //계정이 없을 때
                     //navController.navigate(R.id.action_signInFragment_to_signOutFragment);
-                    Log.v("signinFragment", "계정없음");
                 }
             }
         });

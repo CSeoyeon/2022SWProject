@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.a2022swproject.account.model.User;
 import com.example.a2022swproject.mainFunction.Result;
 import com.example.a2022swproject.mainFunction.SingleCallBack;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.Board;
@@ -16,6 +17,9 @@ public class WritingBoardViewModel extends ViewModel {
     private BoardRepository boardRepository = BoardRepository.getInstance();
 
     private final MutableLiveData<Boolean> writedCompleted = new MutableLiveData<>(false);
+
+    private User user = new User();
+
 
     private Board board = new Board();
     private Bitmap imgBitmap;

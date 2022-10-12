@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/boardList_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F8F8F8"
+    >
 
     <SearchView
         android:id="@+id/boardList_searchView"
@@ -21,7 +23,6 @@
         android:id="@+id/boardList_frameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#F8F8F8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
