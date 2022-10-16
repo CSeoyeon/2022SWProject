@@ -1,4 +1,4 @@
-package com.example.a2022swproject.mainFunction.userInformation;
+package com.example.a2022swproject.mainFunction.userInformation.UserInformationViewModel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

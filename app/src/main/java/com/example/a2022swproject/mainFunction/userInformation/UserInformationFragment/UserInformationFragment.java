@@ -1,4 +1,4 @@
-package com.example.a2022swproject.mainFunction.userInformation;
+package com.example.a2022swproject.mainFunction.userInformation.UserInformationFragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.a2022swproject.databinding.FragmentUserinformationBinding;
-import com.example.a2022swproject.mainFunction.homeMap.HomeMapFragment;
+import com.example.a2022swproject.mainFunction.userInformation.UserInformationViewModel.UserInformationViewModel;
 
 public class UserInformationFragment extends Fragment {
 
@@ -23,10 +23,10 @@ public class UserInformationFragment extends Fragment {
     private UserInformationViewModel userInformationViewModel;
     private NavController navController;
 
-    private ImageView userIcon;
-    private TextView userName;
-    private TextView numberOfPost;
-    private TextView numberOfReceived;
+    private ImageView imgView_userIcon;
+    private TextView tv_userName;
+    private TextView tv_numberOfPost;
+    private TextView tv_numberOfReceived;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,10 +37,10 @@ public class UserInformationFragment extends Fragment {
         navController = NavHostFragment.findNavController(UserInformationFragment.this);
         View root = binding.getRoot();
 
-        userIcon = binding.userInformationIvUserPicture;
-        userName = binding.userInformationTvUserName;
-        numberOfPost = binding.userInformationTmptvBoardNumber;
-        numberOfReceived = binding.userInformationTmptvReceiveNumber;
+        imgView_userIcon = binding.userInformationIvUserPicture;
+        tv_userName = binding.userInformationTvUserName;
+        tv_numberOfPost = binding.userInformationTmptvBoardNumber;
+        tv_numberOfReceived = binding.userInformationTmptvReceiveNumber;
 
 
         return root;
@@ -50,7 +50,7 @@ public class UserInformationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        userName.setText(userInformationViewModel.getUserEmail());
+        tv_userName.setText(userInformationViewModel.getUserEmail());
 
 
     }

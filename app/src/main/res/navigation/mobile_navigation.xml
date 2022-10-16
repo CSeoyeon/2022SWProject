@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/navigation_userInformation"
-        android:name="com.example.a2022swproject.mainFunction.userInformation.UserInformationFragment"
+        android:name="com.example.a2022swproject.mainFunction.userInformation.UserInformationFragment.UserInformationFragment"
         android:label="@string/title_userInformation"
         tools:layout="@layout/fragment_userinformation" />
 

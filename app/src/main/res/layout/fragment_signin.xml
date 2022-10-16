@@ -38,6 +38,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="44dp"
         android:ems="10"
+        android:inputType="textEmailAddress"
         app:layout_constraintStart_toEndOf="@+id/SignIn_tv_tel"
         app:layout_constraintTop_toBottomOf="@+id/signIn_tv_signInLabel" />
 

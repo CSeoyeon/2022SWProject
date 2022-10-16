@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainFunction.userInformation.UserInformationFragment">
+    tools:context=".mainFunction.userInformation.UserInformationFragment.UserInformationFragment">
 
     <TextView
         android:id="@+id/userInformation_tv_userName"

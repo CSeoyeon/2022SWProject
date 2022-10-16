@@ -17,7 +17,6 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.a2022swproject.R;
 import com.example.a2022swproject.account.viewmodel.AuthViewModel;
-import com.example.a2022swproject.databinding.FragmentSigninBinding;
 import com.example.a2022swproject.databinding.FragmentSignupBinding;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -73,7 +72,7 @@ public class SignUpFragment extends Fragment {
                 if (!email.isEmpty() && !password.isEmpty()){
                     authViewModel.register(email , password);
                     //옵저버로 등록 확인 할 수 있도록 추가 해야함
-                    navController.navigate(R.id.action_navigation_signUp_to_navigation_signIn);
+                    navController.navigate(R.id.action_navigation_signUp_to_navigation_inputUserInformation);
                 }
             }
         });
