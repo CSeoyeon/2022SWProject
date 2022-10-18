@@ -44,8 +44,8 @@
         <ImageView
             android:id="@+id/userInformation_iv_userPicture"
             android:layout_width="match_parent"
-            android:layout_height="98dp"
-            tools:src="@tools:sample/avatars" />
+            android:layout_height="match_parent"
+            tools:src="@drawable/navigation_user" />
     </androidx.cardview.widget.CardView>
 
     <TextView
