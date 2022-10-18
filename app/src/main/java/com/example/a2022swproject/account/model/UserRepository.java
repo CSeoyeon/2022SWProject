@@ -1,6 +1,7 @@
 package com.example.a2022swproject.account.model;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -18,12 +19,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.example.a2022swproject.account.model.User;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,8 +98,6 @@ public class UserRepository {
                                User foundUser = documentSnapshot.toObject(User.class);
                                currUser = foundUser;
                                callback.onComplete(new Result.Success<User>(currUser));
-                               Log.v("", "currUser" + currUser.getUserName());
-                               Log.v("", "foundUser" + foundUser.getUserName());
                            }
                         }
                         else{
@@ -105,6 +107,31 @@ public class UserRepository {
                 });
 
     }
+
+    public Bitmap getUserIcon() throws IOException {
+
+        StorageReference downloadRef = userIconImgStorage.getReference().child("userIconImg/" + getUserEmail() + ".jpg");
+        File localFile = File.createTempFile("userIcon", "jpg");
+        final Bitmap[] userIconBitmap = new Bitmap[1];
+
+        downloadRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                Bitmap tmpBitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
+                userIconBitmap[0] = tmpBitmap;
+                // Local temp file has been created
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+
+        return userIconBitmap[0];
+
+    }
+
 
     public String getUserEmail() {
         return userEmail;

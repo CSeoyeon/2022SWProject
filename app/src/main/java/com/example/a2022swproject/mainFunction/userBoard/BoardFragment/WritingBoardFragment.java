@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -45,6 +46,7 @@ public class WritingBoardFragment extends Fragment {
     private Button bt_locationFind;
     private ImageButton imgBtn_addImg;
     private Button bt_writing;
+    private TextView tv_checkFurniture;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class WritingBoardFragment extends Fragment {
         bt_locationFind = binding.writingBoardBtLocationFind;
         imgBtn_addImg = binding.writingBoardImgbtnAddImg;
         bt_writing = binding.writingBoardBtWriting;
+        tv_checkFurniture = binding.writingBoardTvCheckFurniture;
 
         return binding.getRoot();
     }
@@ -100,6 +103,8 @@ public class WritingBoardFragment extends Fragment {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 launchGallery.launch(intent);
+
+                //가구 들어가서 파일 확인 및 textview 수정
 
             }
         });

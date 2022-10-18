@@ -20,6 +20,8 @@ import com.example.a2022swproject.R;
 import com.example.a2022swproject.databinding.FragmentUserinformationBinding;
 import com.example.a2022swproject.mainFunction.userInformation.UserInformationViewModel.UserInformationViewModel;
 
+import java.io.IOException;
+
 public class UserInformationFragment extends Fragment {
 
     private FragmentUserinformationBinding binding;
@@ -65,16 +67,24 @@ public class UserInformationFragment extends Fragment {
         userInformationViewModel.getUserInformation_VM();
 
         userInformationViewModel.getDBUser().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean) {
                     tv_userName.setText(userInformationViewModel.getUser().getUserName());
+
                 } else {
                     tv_userName.setText(userInformationViewModel.getUserEmail());
                 }
             }
         });
 
+
+        try {
+            imgView_userIcon.setImageBitmap(userInformationViewModel.getUserIconBitmap());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

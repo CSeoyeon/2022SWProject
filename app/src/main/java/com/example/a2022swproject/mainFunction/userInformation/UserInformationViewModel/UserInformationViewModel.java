@@ -1,5 +1,7 @@
 package com.example.a2022swproject.mainFunction.userInformation.UserInformationViewModel;
 
+import android.graphics.Bitmap;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,6 +11,9 @@ import com.example.a2022swproject.account.model.UserRepository;
 import com.example.a2022swproject.mainFunction.Result;
 import com.example.a2022swproject.mainFunction.SingleCallBack;
 
+import java.io.IOError;
+import java.io.IOException;
+
 public class UserInformationViewModel extends ViewModel {
 
     MutableLiveData<Boolean> getDBUser = new MutableLiveData<>(false);
@@ -16,6 +21,7 @@ public class UserInformationViewModel extends ViewModel {
     UserRepository userRepository = UserRepository.getInstance();
 
     private User user= new User();
+    private Bitmap userIconBitmap;
     public UserInformationViewModel() {
     }
 
@@ -31,6 +37,9 @@ public class UserInformationViewModel extends ViewModel {
         });
     }
 
+    public Bitmap getUserIconBitmap() throws IOException{
+        return userIconBitmap = userRepository.getUserIcon();
+    }
 
     public String getUserEmail(){
         return userRepository.getUserEmail();
