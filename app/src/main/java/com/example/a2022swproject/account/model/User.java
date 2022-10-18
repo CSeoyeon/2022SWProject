@@ -5,7 +5,7 @@ public class User {
     private String userEmail = "";
     private String password = "";
     private String userName = "";
-    private String numberOfPost = "";
+    private int numberOfPost = 0;
     private String numberOfItemReceived = "";
 
     public User(){}
@@ -35,11 +35,11 @@ public class User {
     }
 
 
-    public String getNumberOfPost() {
+    public int getNumberOfPost() {
         return numberOfPost;
     }
 
-    public void setNumberOfPost(String numberOfPost) {
+    public void setNumberOfPost(int numberOfPost) {
         this.numberOfPost = numberOfPost;
     }
 

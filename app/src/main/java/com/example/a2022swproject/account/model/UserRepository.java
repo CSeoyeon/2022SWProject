@@ -39,6 +39,7 @@ public class UserRepository {
     private String userEmail;
     private String userPassword;
     private String userName;
+    private int numberOfPost = 0;
 
     private UserRepository(){}
     public static UserRepository getInstance(){return INSTANCE;}
@@ -119,5 +120,13 @@ public class UserRepository {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public int getNumberOfPost() {
+        return numberOfPost;
+    }
+
+    public void setNumberOfPost(int numberOfPost) {
+        this.numberOfPost = numberOfPost;
     }
 }

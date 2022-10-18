@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,8 @@ import com.example.a2022swproject.account.viewmodel.AuthViewModel;
 import com.example.a2022swproject.databinding.FragmentSignupBinding;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.time.temporal.Temporal;
+
 public class SignUpFragment extends Fragment {
 
     private FragmentSignupBinding binding;
@@ -30,6 +33,7 @@ public class SignUpFragment extends Fragment {
     private EditText et_password;
     private EditText et_passwordConfirm;
     private Button bt_signUp;
+    private TextView tv_alarm;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class SignUpFragment extends Fragment {
         et_password = binding.signUpEtPasswrod;
         et_passwordConfirm = binding.signUpEtConfirmPassword;
         bt_signUp = binding.signUpBtSignUp;
+        tv_alarm = binding.signUpTvAlarmText;
 
         return binding.getRoot();
     }
@@ -68,12 +73,19 @@ public class SignUpFragment extends Fragment {
             public void onClick(View view) {
                 String email = et_email.getText().toString();
                 String password = et_password.getText().toString();
+                String passwordConfirm = et_passwordConfirm.getText().toString();
 
-                if (!email.isEmpty() && !password.isEmpty()){
-                    authViewModel.register(email , password);
-                    //옵저버로 등록 확인 할 수 있도록 추가 해야함
-                    navController.navigate(R.id.action_navigation_signUp_to_navigation_signIn);
+                if(!password.equals(passwordConfirm)){
+                    tv_alarm.setText("비밀번호가 동일하지 않습니다.");
                 }
+                else{
+                    if (!email.isEmpty() && !password.isEmpty()){
+                        authViewModel.register(email , password);
+                        //옵저버로 등록 확인 할 수 있도록 추가 해야함
+                        navController.navigate(R.id.action_navigation_signUp_to_navigation_signIn);
+                    }
+                }
+
             }
         });
 

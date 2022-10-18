@@ -83,7 +83,7 @@ public class AuthenticationRepository {
                     firebaseUserMutableLiveData.postValue(auth.getCurrentUser());
                 }
                 else{
-                    Toast.makeText(application, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    String error = "아이디가 존재하지 않거나 비밀번호를 틀렸습니다.";
                 }
             }
         });

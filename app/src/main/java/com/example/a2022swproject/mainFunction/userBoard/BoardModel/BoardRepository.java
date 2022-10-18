@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.a2022swproject.account.model.UserRepository;
 import com.example.a2022swproject.mainFunction.Result;
 import com.example.a2022swproject.mainFunction.SingleCallBack;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,8 +32,9 @@ public class BoardRepository {
     //firebasefirestore -> text, firebaseStorage ->image
     private FirebaseFirestore boardStorage = FirebaseFirestore.getInstance();
     private FirebaseStorage boardImgStorage = FirebaseStorage.getInstance();
-
     private CollectionReference boardRef = boardStorage.collection("board");
+
+    UserRepository userRepository = UserRepository.getInstance();
 
     private Board currentBoard;
     private ArrayList<Board> boardList;
@@ -42,6 +44,10 @@ public class BoardRepository {
 
     //게시판 작성
     public void writeBoard(Board board, Bitmap imgBitmap, SingleCallBack<Result<Board>> callback){
+
+        board.setBoardNumber(userRepository.getUserEmail() + String.valueOf(userRepository.getNumberOfPost()));
+        userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
+
         //글 삽입
         boardRef.document(board.getBoardNumber())
                 .set(board)
@@ -62,8 +68,10 @@ public class BoardRepository {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        //boardNumber 수정 해야함
-        StorageReference uploadRef = boardImgStorage.getReference().child("item/boardNumber_2" + ".jpg");
+
+        StorageReference uploadRef = boardImgStorage.getReference().
+                child("item/boardNumber" + board.getBoardNumber() + ".jpg");
+
         UploadTask uploadTask = uploadRef.putBytes(data);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
