@@ -26,10 +26,10 @@
         android:text="확인"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.535"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_et_phoneNumber"
-        app:layout_constraintVertical_bias="0.137" />
+        app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_et_name"
+        app:layout_constraintVertical_bias="0.104" />
 
     <TextView
         android:id="@+id/inputUserInformation_tv_email"
@@ -67,18 +67,6 @@
         app:layout_constraintStart_toStartOf="@+id/inputUserInformation_tv_email"
         app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_tv_email" />
 
-    <EditText
-        android:id="@+id/inputUserInformation_et_phoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="@+id/inputUserInformation_et_name"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/inputUserInformation_et_name"
-        app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_et_name" />
-
     <TextView
         android:id="@+id/inputUserInformation_tv_name"
         android:layout_width="wrap_content"
@@ -88,17 +76,6 @@
         app:layout_constraintEnd_toEndOf="@+id/inputUserInformation_tv_e"
         app:layout_constraintStart_toStartOf="@+id/inputUserInformation_tv_e"
         app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_tv_e" />
-
-    <TextView
-        android:id="@+id/inputUserInformation_tv_phoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="전화번호"
-        app:layout_constraintEnd_toEndOf="@+id/inputUserInformation_tv_name"
-        app:layout_constraintHorizontal_bias="0.269"
-        app:layout_constraintStart_toStartOf="@+id/inputUserInformation_tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_tv_name" />
 
     <TextView
         android:id="@+id/inputUserInformation_tv_imgIconTV"

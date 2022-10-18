@@ -41,7 +41,6 @@ public class InputUserInformationFragment extends Fragment {
     private ImageButton imgBtn_addIcon;
     private TextView tv_email;
     private EditText et_name;
-    private EditText et_phoneNumber;
     private Button bt_save;
 
     @Nullable
@@ -56,7 +55,6 @@ public class InputUserInformationFragment extends Fragment {
         imgBtn_addIcon = binding.inputUserInformationImgBtnSetIcon;
         tv_email = binding.inputUserInformationTvEmail;
         et_name = binding.inputUserInformationEtName;
-        et_phoneNumber = binding.inputUserInformationEtPhoneNumber;
         bt_save = binding.inputUserInformationBtnSave;
         return root;
 
@@ -102,7 +100,7 @@ public class InputUserInformationFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                inputUserInformationViewModel.setUserInformation(inputUserInformationViewModel.getUserEmail(), et_name.getText().toString(), et_phoneNumber.getText().toString());
+                inputUserInformationViewModel.setUserInformation(inputUserInformationViewModel.getUserEmail(), et_name.getText().toString());
                 inputUserInformationViewModel.tryWritingInformation(inputUserInformationViewModel.getUser());
                 inputUserInformationViewModel.setDBBoard().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                     @Override

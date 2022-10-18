@@ -5,7 +5,6 @@ public class User {
     private String userEmail = "";
     private String password = "";
     private String userName = "";
-    private String phoneNumber = "";
     private String numberOfPost = "";
     private String numberOfItemReceived = "";
 
@@ -35,13 +34,6 @@ public class User {
         this.password = password;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
 
     public String getNumberOfPost() {
         return numberOfPost;

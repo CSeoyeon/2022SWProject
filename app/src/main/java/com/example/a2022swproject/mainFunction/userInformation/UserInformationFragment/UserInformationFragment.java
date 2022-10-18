@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -33,7 +34,7 @@ public class UserInformationFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-       userInformationViewModel =
+        userInformationViewModel =
                 new ViewModelProvider(this).get(UserInformationViewModel.class);
 
         binding = FragmentUserinformationBinding.inflate(inflater, container, false);
@@ -53,7 +54,6 @@ public class UserInformationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        tv_userName.setText(userInformationViewModel.getUserEmail());
 
         bt_modifyInformation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +61,20 @@ public class UserInformationFragment extends Fragment {
                 navController.navigate(R.id.action_navigation_userInformation_to_navigation_inputUserInformation);
             }
         });
+
+        userInformationViewModel.getUserInformation_VM();
+
+        userInformationViewModel.getDBUser().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean) {
+                    tv_userName.setText(userInformationViewModel.getUser().getUserName());
+                } else {
+                    tv_userName.setText(userInformationViewModel.getUserEmail());
+                }
+            }
+        });
+
 
     }
 
