@@ -20,7 +20,8 @@ public class InputUserInformationViewModel extends ViewModel {
     private User user = new User();
     private Bitmap imgBitmap;
 
-    public void setUserInformation(String name, String phoneNumber) {
+    public void setUserInformation(String email, String name, String phoneNumber) {
+        user.setUserEmail(email);
         user.setUserName(name);
         user.setPhoneNumber(phoneNumber);
     }

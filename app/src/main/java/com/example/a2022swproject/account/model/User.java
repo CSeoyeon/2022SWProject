@@ -2,12 +2,12 @@ package com.example.a2022swproject.account.model;
 
 public class User {
 
-    private String userEmail;
-    private String password;
-    private String userName;
-    private String phoneNumber;
-    private String numberOfPost;
-    private String numberOfItemReceived;
+    private String userEmail = "";
+    private String password = "";
+    private String userName = "";
+    private String phoneNumber = "";
+    private String numberOfPost = "";
+    private String numberOfItemReceived = "";
 
     public User(){}
 

@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -26,6 +27,7 @@ public class UserRepository {
 
     private FirebaseFirestore userStorage = FirebaseFirestore.getInstance();
     private FirebaseStorage userIconImgStorage = FirebaseStorage.getInstance();
+    private CollectionReference usersRef = userStorage.collection("user");
 
     private User currUser;
 
@@ -40,17 +42,16 @@ public class UserRepository {
 
     public void setUserInformation(User user, Bitmap imgBitmap, SingleCallBack<Result<User>> callback){
 
-        currUser.setUserName(user.getUserName());
-        currUser.setPhoneNumber(user.getPhoneNumber());
-
         //input a user information
-        userStorage.document(user.getUserEmail())
-                .set(currUser)
+        usersRef.document(userEmail)
+                .set(user)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             callback.onComplete(new Result.Success<User>(currUser));
+                            currUser.setUserName(user.getUserName());
+                            currUser.setPhoneNumber(user.getPhoneNumber());
                             Log.v("BoardRepository Complete", " : " + UserRepository.this.toString() );
                         }
                         else{
@@ -58,7 +59,6 @@ public class UserRepository {
                         }
                     }
                 });
-
 
         //이미지 삽입
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

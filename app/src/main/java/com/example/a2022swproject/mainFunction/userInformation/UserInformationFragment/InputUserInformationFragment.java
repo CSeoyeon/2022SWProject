@@ -68,7 +68,6 @@ public class InputUserInformationFragment extends Fragment {
 
         tv_email.setText(inputUserInformationViewModel.getUserEmail());
 
-        inputUserInformationViewModel.setUserInformation(et_name.getText().toString(), et_phoneNumber.getText().toString());
 
         //add image icon
         ActivityResultLauncher<Intent> launchGallery = registerForActivityResult(
@@ -103,6 +102,7 @@ public class InputUserInformationFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                inputUserInformationViewModel.setUserInformation(inputUserInformationViewModel.getUserEmail(), et_name.getText().toString(), et_phoneNumber.getText().toString());
                 inputUserInformationViewModel.tryWritingInformation(inputUserInformationViewModel.getUser());
                 inputUserInformationViewModel.setDBBoard().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                     @Override
