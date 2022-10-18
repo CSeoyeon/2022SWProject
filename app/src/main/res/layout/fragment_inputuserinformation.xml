@@ -7,14 +7,17 @@
 
     <ImageButton
         android:id="@+id/inputUserInformation_imgBtn_setIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="112dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="10dp"
+        android:src="@drawable/navigation_user"
         app:layout_constraintEnd_toEndOf="@+id/inputUserInformation_tv_imgIconTV"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="@+id/inputUserInformation_tv_imgIconTV"
         app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_tv_imgIconTV"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:src="@drawable/navigation_user"
+        tools:srcCompat="@drawable/navigation_user" />
 
     <Button
         android:id="@+id/inputUserInformation_btn_save"
@@ -23,31 +26,32 @@
         android:text="확인"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_et_phoneNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_et_phoneNumber"
+        app:layout_constraintVertical_bias="0.137" />
 
     <TextView
         android:id="@+id/inputUserInformation_tv_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="220dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.143"
-        app:layout_constraintStart_toEndOf="@+id/inputUserInformation_tv_e"
+        app:layout_constraintEnd_toEndOf="@+id/inputUserInformation_imgBtn_setIcon"
+        app:layout_constraintHorizontal_bias="0.231"
+        app:layout_constraintStart_toStartOf="@+id/inputUserInformation_imgBtn_setIcon"
         app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_imgBtn_setIcon" />
 
     <TextView
         android:id="@+id/inputUserInformation_tv_e"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="12dp"
         android:text="이메일"
         app:layout_constraintEnd_toStartOf="@+id/inputUserInformation_imgBtn_setIcon"
-        app:layout_constraintHorizontal_bias="0.594"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_imgBtn_setIcon" />
 
@@ -55,10 +59,11 @@
         android:id="@+id/inputUserInformation_et_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/inputUserInformation_tv_email"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/inputUserInformation_tv_email"
         app:layout_constraintTop_toBottomOf="@+id/inputUserInformation_tv_email" />
 
@@ -99,10 +104,12 @@
         android:id="@+id/inputUserInformation_tv_imgIconTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
         android:text="프로필 사진을 추가해주세요"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

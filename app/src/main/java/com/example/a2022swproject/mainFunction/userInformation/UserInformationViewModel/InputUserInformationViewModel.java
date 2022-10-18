@@ -25,7 +25,7 @@ public class InputUserInformationViewModel extends ViewModel {
         user.setPhoneNumber(phoneNumber);
     }
 
-    public void tryWritingInformation(User usr) {
+    public void tryWritingInformation(User user) {
         userRepository.setUserInformation(user, imgBitmap, new SingleCallBack<Result<User>>() {
             @Override
             public void onComplete(Result<User> result) {
@@ -44,6 +44,10 @@ public class InputUserInformationViewModel extends ViewModel {
 
     public LiveData<Boolean> setDBBoard() {
         return setUserDB;
+    }
+
+    public User getUser(){
+        return user;
     }
 
     public String getUserEmail(){

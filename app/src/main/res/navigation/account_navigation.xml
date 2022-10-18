@@ -22,8 +22,8 @@
         android:label="signUp"
         tools:layout="@layout/fragment_signup" >
         <action
-            android:id="@+id/action_navigation_signUp_to_navigation_inputUserInformation"
-            app:destination="@id/navigation_inputUserInformation" />
+            android:id="@+id/action_navigation_signUp_to_navigation_signIn"
+            app:destination="@id/navigation_signIn" />
     </fragment>
 
     <fragment
@@ -33,16 +33,6 @@
         tools:layout="@layout/fragment_signout" >
         <action
             android:id="@+id/action_navigation_signOut_to_navigation_signIn"
-            app:destination="@id/navigation_signIn" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/navigation_inputUserInformation"
-        android:name="com.example.a2022swproject.mainFunction.userInformation.UserInformationFragment.InputUserInformationFragment"
-        android:label="inputUserInformation"
-        tools:layout="@layout/fragment_inputuserinformation" >
-        <action
-            android:id="@+id/action_navigation_inputUserInformation_to_navigation_signIn"
             app:destination="@id/navigation_signIn" />
     </fragment>
 

@@ -57,7 +57,7 @@ public class InputUserInformationFragment extends Fragment {
         tv_email = binding.inputUserInformationTvEmail;
         et_name = binding.inputUserInformationEtName;
         et_phoneNumber = binding.inputUserInformationEtPhoneNumber;
-
+        bt_save = binding.inputUserInformationBtnSave;
         return root;
 
     }
@@ -98,15 +98,16 @@ public class InputUserInformationFragment extends Fragment {
             }
         });
 
+
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                inputUserInformationViewModel.tryWritingInformation(inputUserInformationViewModel.getUser());
                 inputUserInformationViewModel.setDBBoard().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                     @Override
                     public void onChanged(Boolean aBoolean) {
-                        navController.navigate(R.id.action_navigation_inputUserInformation_to_navigation_signIn);
-
+                        navController.navigate(R.id.action_navigation_inputUserInformation_to_navigation_userInformation);
                     }
                 });
 

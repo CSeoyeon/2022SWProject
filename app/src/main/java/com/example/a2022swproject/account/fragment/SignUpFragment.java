@@ -72,7 +72,7 @@ public class SignUpFragment extends Fragment {
                 if (!email.isEmpty() && !password.isEmpty()){
                     authViewModel.register(email , password);
                     //옵저버로 등록 확인 할 수 있도록 추가 해야함
-                    navController.navigate(R.id.action_navigation_signUp_to_navigation_inputUserInformation);
+                    navController.navigate(R.id.action_navigation_signUp_to_navigation_signIn);
                 }
             }
         });

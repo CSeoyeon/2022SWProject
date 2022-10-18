@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.a2022swproject.R;
 import com.example.a2022swproject.databinding.FragmentUserinformationBinding;
 import com.example.a2022swproject.mainFunction.userInformation.UserInformationViewModel.UserInformationViewModel;
 
@@ -27,6 +29,7 @@ public class UserInformationFragment extends Fragment {
     private TextView tv_userName;
     private TextView tv_numberOfPost;
     private TextView tv_numberOfReceived;
+    private Button bt_modifyInformation;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class UserInformationFragment extends Fragment {
         tv_userName = binding.userInformationTvUserName;
         tv_numberOfPost = binding.userInformationTmptvBoardNumber;
         tv_numberOfReceived = binding.userInformationTmptvReceiveNumber;
-
+        bt_modifyInformation = binding.userInformationBtModifyInfo;
 
         return root;
     }
@@ -52,6 +55,12 @@ public class UserInformationFragment extends Fragment {
 
         tv_userName.setText(userInformationViewModel.getUserEmail());
 
+        bt_modifyInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_navigation_userInformation_to_navigation_inputUserInformation);
+            }
+        });
 
     }
 
