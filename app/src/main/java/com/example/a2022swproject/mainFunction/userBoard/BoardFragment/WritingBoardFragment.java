@@ -72,14 +72,13 @@ public class WritingBoardFragment extends Fragment {
             public void onChanged(Boolean aBoolean) {
                 try {
                     writingBoardViewModel.getFurnitureType_MV();
-                    Log.v("boardFragment", "Furniture type: " + writingBoardViewModel.getFurnitureType());
                     tv_checkFurniture.setText(writingBoardViewModel.getFurnitureType());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
-
+        Log.v("boardFragment", "Furniture type: " + writingBoardViewModel.getFurnitureType());
 
         //get String address
         bt_locationFind.setOnClickListener(new View.OnClickListener() {

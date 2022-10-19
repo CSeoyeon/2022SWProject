@@ -72,7 +72,6 @@ public class BoardRepository {
 
         //storage upload - image
         StorageReference uploadRef = itemRef.child(boardNumber);
-        setCurrentBoardNumber(boardNumber);
 
         //board number 갱신
         userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
@@ -119,8 +118,9 @@ public class BoardRepository {
 
     public void getFurnitureType(SingleCallBack<Result<String>> callBack) throws IOException {
         String txtName = getCurrentBoardNumber();
-        //board 이름명에 맞춰 오는지 확인 필수
-        StorageReference typeTextRef = boardImagesRef.child(txtName+".txt");
+        Log.v("", "txtName" + txtName);
+        //board 이름명에 맞춰 오는지 확인 필수 - currentfileName 변경 해야함.
+        StorageReference typeTextRef = boardImagesRef.child("choiseoyeon0223@gmail.com_0.txt");
 
         File localFile = File.createTempFile("tmp", "txt");
 
