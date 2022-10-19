@@ -7,6 +7,7 @@ public class Board {
     private String boardNumber;
     private String writerId;
 
+    private String writerName;
     private String title;
     private String latitude;
     private String longitude;
@@ -56,6 +57,14 @@ public class Board {
 
     public String getLocation() {
         return location;
+    }
+
+    public String getWriterName() {
+        return writerName;
+    }
+
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
     }
 
     public void setLocation(String location) {

@@ -54,10 +54,10 @@
                 android:id="@+id/boardItem_tv_userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="writer"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/boardItem_iv_boardImage"
-                app:layout_constraintHorizontal_bias="0.855"
+                app:layout_constraintEnd_toEndOf="@+id/boardItem_iv_userIcon"
+                app:layout_constraintHorizontal_bias="0.797"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/boardItem_iv_userIcon"
                 app:layout_constraintVertical_bias="0.0" />

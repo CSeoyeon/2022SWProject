@@ -75,6 +75,7 @@ public class BoardRepository {
     public void writeBoard(Board board, SingleCallBack<Result<Board>> callback){
 
         board.setWriterId(userRepository.getUserEmail());
+        board.setWriterName(userRepository.getUserName());
         board.setBoardNumber(userRepository.getUserEmail() + "_"+ userRepository.getNumberOfPost());
         userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
 

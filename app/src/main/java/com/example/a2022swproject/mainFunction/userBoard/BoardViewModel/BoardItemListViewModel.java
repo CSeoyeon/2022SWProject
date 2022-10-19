@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.a2022swproject.account.model.UserRepository;
 import com.example.a2022swproject.mainFunction.Result;
 import com.example.a2022swproject.mainFunction.SingleCallBack;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.Board;
@@ -17,7 +18,11 @@ public class BoardItemListViewModel extends ViewModel {
 
     MutableLiveData<Boolean> getDBBoard = new MutableLiveData<>(false);
 
+
     private BoardRepository boardRepository = BoardRepository.getInstance();
+
+    private UserRepository userRepository = UserRepository.getInstance();
+
     private ArrayList<Board> boardArrayList = new ArrayList<>();
 
     public void getBoardList() {
@@ -39,5 +44,7 @@ public class BoardItemListViewModel extends ViewModel {
     public ArrayList<Board> getBoardArrayList() {
         return boardArrayList;
     }
+
+
 
 }

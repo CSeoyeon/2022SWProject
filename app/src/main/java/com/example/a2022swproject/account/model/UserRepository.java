@@ -50,6 +50,7 @@ public class UserRepository {
 
 
     public void setUserInformation(User user, Bitmap imgBitmap, SingleCallBack<Result<User>> callback){
+
         //input a user information
         usersRef.document(userEmail)
                 .set(user)
@@ -97,6 +98,7 @@ public class UserRepository {
                            for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                User foundUser = documentSnapshot.toObject(User.class);
                                currUser = foundUser;
+                               setUserName(currUser.getUserName());
                                callback.onComplete(new Result.Success<User>(currUser));
                            }
                         }
@@ -156,4 +158,15 @@ public class UserRepository {
     public void setNumberOfPost(int numberOfPost) {
         this.numberOfPost = numberOfPost;
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }
+
+
+

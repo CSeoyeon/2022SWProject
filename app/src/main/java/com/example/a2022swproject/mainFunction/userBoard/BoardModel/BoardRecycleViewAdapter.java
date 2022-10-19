@@ -33,7 +33,10 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String title = records.get(position).getTitle();
+        String writerName = records.get(position).getWriterName();
+
         holder.tv_title.setText(title);
+        holder.tv_userName.setText(writerName);
 
         //holder.tv_title.setText("ewtwerterraeteat");
 
