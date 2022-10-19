@@ -76,6 +76,7 @@ public class BoardRepository {
 
         board.setWriterId(userRepository.getUserEmail());
         board.setBoardNumber(userRepository.getUserEmail() + "_"+ userRepository.getNumberOfPost());
+        userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
 
         //글 삽입
         boardRef.document(board.getBoardNumber())
