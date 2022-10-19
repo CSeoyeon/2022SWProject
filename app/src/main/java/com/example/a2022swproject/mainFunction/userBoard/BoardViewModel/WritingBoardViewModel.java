@@ -16,7 +16,9 @@ public class WritingBoardViewModel extends ViewModel {
 
     private BoardRepository boardRepository = BoardRepository.getInstance();
 
-    private final MutableLiveData<Boolean> writedCompleted = new MutableLiveData<>(false);
+    private final MutableLiveData<Boolean> writingCompleted = new MutableLiveData<>(false);
+
+    private MutableLiveData<Boolean> putImage = new MutableLiveData<>(false);
 
     private User user = new User();
 
@@ -39,12 +41,23 @@ public class WritingBoardViewModel extends ViewModel {
 
     //게시글 작성
     public void tryWriting(Board board) {
-        boardRepository.writeBoard(board, imgBitmap, new SingleCallBack<Result<Board>>() {
+        boardRepository.writeBoard(board, new SingleCallBack<Result<Board>>() {
             @Override
             public void onComplete(Result<Board> result) {
                 if (result instanceof Result.Success) {
                     Board writingBoard = ((Result.Success<Board>) result).getData();
-                    writedCompleted.postValue(true);
+                    writingCompleted.postValue(true);
+                }
+            }
+        });
+    }
+    
+    public void tryWritingImg(){
+        boardRepository.writingBoardImg(imgBitmap, new SingleCallBack<Result<Board>>() {
+            @Override
+            public void onComplete(Result<Board> result) {
+                if(result instanceof Result.Success){
+                    putImage.postValue(true);
                 }
             }
         });
@@ -58,9 +71,12 @@ public class WritingBoardViewModel extends ViewModel {
         return board;
     }
 
-    public LiveData<Boolean> getwritedComplete() {
-        return writedCompleted;
+    public LiveData<Boolean> getWritingComplete() {
+        return writingCompleted;
     }
 
+    public LiveData<Boolean> putWritingImg(){
+        return putImage;
+    }
 
 }

@@ -150,6 +150,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
             android:text="checkFurniture"
+            android:textColor="#25D495"
             app:layout_constraintBottom_toTopOf="@+id/writingBoard_imgbtn_addImg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

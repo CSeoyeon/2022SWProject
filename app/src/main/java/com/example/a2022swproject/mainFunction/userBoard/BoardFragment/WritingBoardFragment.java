@@ -93,6 +93,9 @@ public class WritingBoardFragment extends Fragment {
                             imgBtn_addImg.setImageURI(selectedImage);
                             writingBoardViewModel.setImgBitmap(((BitmapDrawable)imgBtn_addImg.getDrawable()).getBitmap());
                             imgBtn_addImg.invalidate();
+
+                            //가구 들어가서 파일 확인 및 textview 수정
+                            writingBoardViewModel.tryWritingImg();
                         }
                     }
                 });
@@ -103,9 +106,6 @@ public class WritingBoardFragment extends Fragment {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 launchGallery.launch(intent);
-
-                //가구 들어가서 파일 확인 및 textview 수정
-
             }
         });
 
@@ -125,7 +125,7 @@ public class WritingBoardFragment extends Fragment {
                 writingBoardViewModel.setBoard(boardNumber, writerId, title, latitude, longitude, address);
                 writingBoardViewModel.tryWriting(writingBoardViewModel.getBoard());
 
-                writingBoardViewModel.getwritedComplete().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+                writingBoardViewModel.getWritingComplete().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                     @Override
                     public void onChanged(Boolean aBoolean) {
                         ((MainActivity)getActivity()).setMarker();

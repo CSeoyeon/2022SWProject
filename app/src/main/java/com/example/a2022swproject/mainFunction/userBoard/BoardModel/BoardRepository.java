@@ -42,11 +42,40 @@ public class BoardRepository {
 
     public static BoardRepository getInstance(){return INSTANCE;}
 
-    //게시판 작성
-    public void writeBoard(Board board, Bitmap imgBitmap, SingleCallBack<Result<Board>> callback){
 
-        board.setBoardNumber(userRepository.getUserEmail() + String.valueOf(userRepository.getNumberOfPost()));
+    //이미지 삽입
+    public void writingBoardImg(Bitmap imgBitmap, SingleCallBack<Result<Board>> callback){
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        StorageReference uploadRef = boardImgStorage.getReference().
+                child("item/" +userRepository.getUserEmail()+ "_"+
+                        userRepository.getNumberOfPost() +  ".jpg");
+
         userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
+
+        UploadTask uploadTask = uploadRef.putBytes(data);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        });
+    }
+
+
+    //게시판 작성
+    public void writeBoard(Board board, SingleCallBack<Result<Board>> callback){
+
+        board.setWriterId(userRepository.getUserEmail());
+        board.setBoardNumber(userRepository.getUserEmail() + "_"+ userRepository.getNumberOfPost());
 
         //글 삽입
         boardRef.document(board.getBoardNumber())
@@ -63,31 +92,9 @@ public class BoardRepository {
                         }
                     }
                 });
-
-        //이미지 삽입
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-
-        StorageReference uploadRef = boardImgStorage.getReference().
-                child("item/boardNumber" + board.getBoardNumber() + ".jpg");
-
-        UploadTask uploadTask = uploadRef.putBytes(data);
-
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-            }
-        });
-
-
-
     }
+
+
 
     //게시판 불러오기
     public void getBoard(SingleCallBack<Result<ArrayList>> callBack){
