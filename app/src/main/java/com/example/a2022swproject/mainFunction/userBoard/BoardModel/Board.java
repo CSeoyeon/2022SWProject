@@ -12,6 +12,7 @@ public class Board {
     private String latitude;
     private String longitude;
     private String location;
+    private String furnitureType = "checking Furniture";
 
     public Board(){}
 
@@ -69,6 +70,14 @@ public class Board {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getFurnitureType() {
+        return furnitureType;
+    }
+
+    public void setFurnitureType(String furnitureType) {
+        this.furnitureType = furnitureType;
     }
 
     @NonNull

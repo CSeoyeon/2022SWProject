@@ -31,9 +31,8 @@ import com.example.a2022swproject.MainActivity;
 import com.example.a2022swproject.R;
 import com.example.a2022swproject.databinding.FragmentWritingboardBinding;
 import com.example.a2022swproject.mainFunction.userBoard.BoardViewModel.WritingBoardViewModel;
-import com.naver.maps.geometry.LatLng;
-import com.naver.maps.map.NaverMap;
-import com.naver.maps.map.overlay.Marker;
+
+import java.io.IOException;
 
 public class WritingBoardFragment extends Fragment {
 
@@ -67,13 +66,28 @@ public class WritingBoardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
+
+        writingBoardViewModel.getFurniture().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                try {
+                    writingBoardViewModel.getFurnitureType_MV();
+                    Log.v("boardFragment", "Furniture type: " + writingBoardViewModel.getFurnitureType());
+                    tv_checkFurniture.setText(writingBoardViewModel.getFurnitureType());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
         //get String address
         bt_locationFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 et_location.setText("");
                 et_location.setText(
-                        ((MainActivity)getActivity()).getAddress()
+                        ((MainActivity) getActivity()).getAddress()
                 );
             }
         });
@@ -82,16 +96,13 @@ public class WritingBoardFragment extends Fragment {
         //add image
         ActivityResultLauncher<Intent> launchGallery = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>()
-                {
+                new ActivityResultCallback<ActivityResult>() {
                     @Override
-                    public void onActivityResult(ActivityResult result)
-                    {
-                        if(result.getResultCode() == Activity.RESULT_OK)
-                        {
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
                             Uri selectedImage = result.getData().getData();
                             imgBtn_addImg.setImageURI(selectedImage);
-                            writingBoardViewModel.setImgBitmap(((BitmapDrawable)imgBtn_addImg.getDrawable()).getBitmap());
+                            writingBoardViewModel.setImgBitmap(((BitmapDrawable) imgBtn_addImg.getDrawable()).getBitmap());
                             imgBtn_addImg.invalidate();
 
                             //가구 들어가서 파일 확인 및 textview 수정
@@ -118,9 +129,9 @@ public class WritingBoardFragment extends Fragment {
                 String writerId = "1";
 
                 String title = et_title.getText().toString();
-                String latitude =  String.valueOf(((MainActivity)getActivity()).getLatitude());
-                String longitude = String.valueOf(((MainActivity)getActivity()).getLongitude());
-                String address = ((MainActivity)getActivity()).getAddress();
+                String latitude = String.valueOf(((MainActivity) getActivity()).getLatitude());
+                String longitude = String.valueOf(((MainActivity) getActivity()).getLongitude());
+                String address = ((MainActivity) getActivity()).getAddress();
 
                 writingBoardViewModel.setBoard(boardNumber, writerId, title, latitude, longitude, address);
                 writingBoardViewModel.tryWriting(writingBoardViewModel.getBoard());
@@ -128,7 +139,7 @@ public class WritingBoardFragment extends Fragment {
                 writingBoardViewModel.getWritingComplete().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                     @Override
                     public void onChanged(Boolean aBoolean) {
-                        ((MainActivity)getActivity()).setMarker();
+                        ((MainActivity) getActivity()).setMarker();
                         navController.navigate(R.id.action_navigation_userBoard_to_navigation_boarList);
                     }
                 });

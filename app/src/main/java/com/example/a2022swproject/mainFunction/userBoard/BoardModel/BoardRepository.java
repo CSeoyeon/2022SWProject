@@ -1,6 +1,7 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardModel;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -17,11 +18,19 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -31,7 +40,13 @@ public class BoardRepository {
 
     //firebasefirestore -> text, firebaseStorage ->image
     private FirebaseFirestore boardStorage = FirebaseFirestore.getInstance();
-    private FirebaseStorage boardImgStorage = FirebaseStorage.getInstance();
+
+    private FirebaseStorage itemStorage = FirebaseStorage.getInstance();
+    private StorageReference itemRef = itemStorage.getReference().child("item");
+
+    private FirebaseStorage boardImageStorage = FirebaseStorage.getInstance();
+    private StorageReference boardImagesRef = boardImageStorage.getReference().child("boardImages");
+
     private CollectionReference boardRef = boardStorage.collection("board");
 
     UserRepository userRepository = UserRepository.getInstance();
@@ -39,6 +54,8 @@ public class BoardRepository {
     private Board currentBoard;
     private ArrayList<Board> boardList;
     private BoardRepository() {}
+
+    private String currentBoardNumber;
 
     public static BoardRepository getInstance(){return INSTANCE;}
 
@@ -50,10 +67,14 @@ public class BoardRepository {
         imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
-        StorageReference uploadRef = boardImgStorage.getReference().
-                child("item/" +userRepository.getUserEmail()+ "_"+
-                        userRepository.getNumberOfPost() +  ".jpg");
+        String boardNumber = userRepository.getUserEmail()+ "_"+
+                userRepository.getNumberOfPost() +  ".jpg";
 
+        //storage upload - image
+        StorageReference uploadRef = itemRef.child(boardNumber);
+        setCurrentBoardNumber(boardNumber);
+
+        //board number 갱신
         userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
 
         UploadTask uploadTask = uploadRef.putBytes(data);
@@ -96,6 +117,37 @@ public class BoardRepository {
                 });
     }
 
+    public void getFurnitureType(SingleCallBack<Result<String>> callBack) throws IOException {
+        String txtName = getCurrentBoardNumber();
+        //board 이름명에 맞춰 오는지 확인 필수
+        StorageReference typeTextRef = boardImagesRef.child(txtName+".txt");
+
+        File localFile = File.createTempFile("tmp", "txt");
+
+        typeTextRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                try {
+                    BufferedReader br = new BufferedReader(new FileReader(localFile));
+                    String line = br.readLine();
+                    Log.v("boardRepository", "Furniture type: " +line);
+                    callBack.onComplete(new Result.Success<String>(line));
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
+    }
+
 
 
     //게시판 불러오기
@@ -123,4 +175,14 @@ public class BoardRepository {
                 });
 
     }
+
+    public String getCurrentBoardNumber() {
+        return currentBoardNumber;
+    }
+
+    public void setCurrentBoardNumber(String currentBoardNumber) {
+        this.currentBoardNumber = currentBoardNumber;
+    }
 }
+
+

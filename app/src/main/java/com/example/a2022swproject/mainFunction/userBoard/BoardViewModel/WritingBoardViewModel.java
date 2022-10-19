@@ -12,6 +12,9 @@ import com.example.a2022swproject.mainFunction.SingleCallBack;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.Board;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.BoardRepository;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class WritingBoardViewModel extends ViewModel {
 
     private BoardRepository boardRepository = BoardRepository.getInstance();
@@ -19,13 +22,14 @@ public class WritingBoardViewModel extends ViewModel {
     private final MutableLiveData<Boolean> writingCompleted = new MutableLiveData<>(false);
 
     private MutableLiveData<Boolean> putImage = new MutableLiveData<>(false);
+    private MutableLiveData<Boolean> furniture = new MutableLiveData<>(false);
 
     private User user = new User();
 
 
     private Board board = new Board();
     private Bitmap imgBitmap;
-
+    private String furnitureType;
 
     public WritingBoardViewModel() {
     }
@@ -63,6 +67,18 @@ public class WritingBoardViewModel extends ViewModel {
         });
     }
 
+    public void getFurnitureType_MV() throws IOException {
+        boardRepository.getFurnitureType(new SingleCallBack<Result<String>>() {
+            @Override
+            public void onComplete(Result<String> result) {
+                if(result instanceof Result.Success){
+                    furnitureType = ((Result.Success<String>) result).getData();
+                    furniture.postValue(true);
+                }
+            }
+        });
+    }
+
     public void setImgBitmap(Bitmap bitmap) {
         this.imgBitmap = bitmap;
     }
@@ -79,4 +95,9 @@ public class WritingBoardViewModel extends ViewModel {
         return putImage;
     }
 
+    public LiveData<Boolean> getFurniture(){return furniture;}
+
+    public String getFurnitureType(){
+        return furnitureType;
+    }
 }
