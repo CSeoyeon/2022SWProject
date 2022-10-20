@@ -55,7 +55,7 @@ public class BoardRepository {
     private ArrayList<Board> boardList;
     private BoardRepository() {}
 
-    private String currentBoardNumber;
+    private String currentBoardNumber = "";
 
     public static BoardRepository getInstance(){return INSTANCE;}
 
@@ -68,15 +68,16 @@ public class BoardRepository {
         byte[] data = baos.toByteArray();
 
         String boardNumber = userRepository.getUserEmail()+ "_"+
-                userRepository.getNumberOfPost() +  ".jpg";
+                userRepository.getNumberOfPost();
 
         //storage upload - image
-        StorageReference uploadRef = itemRef.child(boardNumber);
+        StorageReference uploadRef = itemRef.child(boardNumber+  ".jpg");
+        UploadTask uploadTask = uploadRef.putBytes(data);
 
         //board number 갱신
+        setCurrentBoardNumber(boardNumber);
         userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
 
-        UploadTask uploadTask = uploadRef.putBytes(data);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -118,9 +119,15 @@ public class BoardRepository {
 
     public void getFurnitureType(SingleCallBack<Result<String>> callBack) throws IOException {
         String txtName = getCurrentBoardNumber();
-        Log.v("", "txtName" + txtName);
         //board 이름명에 맞춰 오는지 확인 필수 - currentfileName 변경 해야함.
-        StorageReference typeTextRef = boardImagesRef.child("choiseoyeon0223@gmail.com_0.txt");
+        StorageReference typeTextRef;
+        if(!txtName.equals("")){
+            Log.v("", "currentboardImage: "+ txtName +".txt" );
+            typeTextRef = boardImagesRef.child(txtName+".txt");
+        }
+        else{
+            typeTextRef = boardImagesRef.child("tmp.txt");
+        }
 
         File localFile = File.createTempFile("tmp", "txt");
 
