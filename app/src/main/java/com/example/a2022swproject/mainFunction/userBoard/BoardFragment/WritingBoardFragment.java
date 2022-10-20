@@ -66,7 +66,7 @@ public class WritingBoardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-
+        tv_checkFurniture.setText("checking...");
         writingBoardViewModel.getFurniture().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {

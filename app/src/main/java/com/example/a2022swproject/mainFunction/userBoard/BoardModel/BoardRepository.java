@@ -119,10 +119,10 @@ public class BoardRepository {
 
     public void getFurnitureType(SingleCallBack<Result<String>> callBack) throws IOException {
         String txtName = getCurrentBoardNumber();
-        //board 이름명에 맞춰 오는지 확인 필수 - currentfileName 변경 해야함.
+
         StorageReference typeTextRef;
         if(!txtName.equals("")){
-            Log.v("", "currentboardImage: "+ txtName +".txt" );
+            Log.v("BoardRepository", "currentboardNubmer: "+ txtName +".txt" );
             typeTextRef = boardImagesRef.child(txtName+".txt");
         }
         else{
