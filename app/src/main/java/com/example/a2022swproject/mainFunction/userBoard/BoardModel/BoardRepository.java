@@ -1,6 +1,7 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardModel;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 
@@ -32,7 +33,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class BoardRepository {
 
@@ -55,10 +58,12 @@ public class BoardRepository {
     private ArrayList<Board> boardList;
     private BoardRepository() {}
 
+    private String furnitureType = "can not find";
     private String currentBoardNumber = "";
 
     public static BoardRepository getInstance(){return INSTANCE;}
 
+    private String boardImageByte;
 
     //이미지 삽입
     public void writingBoardImg(Bitmap imgBitmap, SingleCallBack<Result<Board>> callback){
@@ -76,7 +81,7 @@ public class BoardRepository {
 
         //board number 갱신
         setCurrentBoardNumber(boardNumber);
-        userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
+
 
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -98,7 +103,8 @@ public class BoardRepository {
         board.setWriterId(userRepository.getUserEmail());
         board.setWriterName(userRepository.getUserName());
         board.setBoardNumber(userRepository.getUserEmail() + "_"+ userRepository.getNumberOfPost());
-        userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
+
+        board.setFurnitureType(furnitureType);
 
         //글 삽입
         boardRef.document(board.getBoardNumber())
@@ -115,6 +121,8 @@ public class BoardRepository {
                         }
                     }
                 });
+
+       userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
     }
 
     public void getFurnitureType(SingleCallBack<Result<String>> callBack) throws IOException {
@@ -122,7 +130,7 @@ public class BoardRepository {
 
         StorageReference typeTextRef;
         if(!txtName.equals("")){
-            Log.v("BoardRepository", "currentboardNubmer: "+ txtName +".txt" );
+            Log.v("BoardRepository", "currentBoardNumber: "+ txtName +".txt" );
             typeTextRef = boardImagesRef.child(txtName+".txt");
         }
         else{
@@ -138,6 +146,7 @@ public class BoardRepository {
                     BufferedReader br = new BufferedReader(new FileReader(localFile));
                     String line = br.readLine();
                     Log.v("boardRepository", "Furniture type: " +line);
+                    setFurnitureType(line);
                     callBack.onComplete(new Result.Success<String>(line));
 
                 } catch (FileNotFoundException e) {
@@ -155,7 +164,24 @@ public class BoardRepository {
 
     }
 
+    public void getBoardImage(SingleCallBack<Result<byte[]>> callBack){
+        final long ONE_MEGABYTE = 1024 * 1024;
+        boardImagesRef
+                .child("choiseoyeon0223@gmail.com_0")
+                .getBytes(ONE_MEGABYTE)
+                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        callBack.onComplete(new Result.Success<byte[]>(bytes));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
+                    }
+                });
+    }
 
     //게시판 불러오기
     public void getBoard(SingleCallBack<Result<ArrayList>> callBack){
@@ -183,12 +209,18 @@ public class BoardRepository {
 
     }
 
+
+
     public String getCurrentBoardNumber() {
         return currentBoardNumber;
     }
 
     public void setCurrentBoardNumber(String currentBoardNumber) {
         this.currentBoardNumber = currentBoardNumber;
+    }
+
+    public void setFurnitureType(String furnitureType) {
+        this.furnitureType = furnitureType;
     }
 }
 

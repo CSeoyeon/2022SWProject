@@ -73,6 +73,7 @@ public class UserInformationFragment extends Fragment {
                 if (aBoolean) {
                     tv_userName.setText(userInformationViewModel.getUser().getUserName());
 
+
                 } else {
                     tv_userName.setText(userInformationViewModel.getUserEmail());
                 }

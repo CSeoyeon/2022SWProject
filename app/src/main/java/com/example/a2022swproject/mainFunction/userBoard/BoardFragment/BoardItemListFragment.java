@@ -27,8 +27,8 @@ import java.util.ArrayList;
 public class BoardItemListFragment extends Fragment {
 
     FragmentBoarditemlistBinding binding;
+
     BoardItemListViewModel boardItemListViewModel;
-    
     private BoardRecycleViewAdapter boardRecycleViewAdapter;
     private RecyclerView rv_boardView;
 
@@ -47,6 +47,8 @@ public class BoardItemListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         boardItemListViewModel.getBoardList();
+
+        boardItemListViewModel.getBoardImage();
 
         boardItemListViewModel.getDBBoard().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override

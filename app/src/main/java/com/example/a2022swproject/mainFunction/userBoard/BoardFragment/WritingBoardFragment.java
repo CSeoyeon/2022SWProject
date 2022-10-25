@@ -66,18 +66,22 @@ public class WritingBoardFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        tv_checkFurniture.setText("checking...");
+        tv_checkFurniture.setText("사진을 선택해주세요");
+
         writingBoardViewModel.getFurniture().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 try {
                     writingBoardViewModel.getFurnitureType_MV();
                     tv_checkFurniture.setText(writingBoardViewModel.getFurnitureType());
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
+
+
         Log.v("boardFragment", "Furniture type: " + writingBoardViewModel.getFurnitureType());
 
         //get String address
@@ -106,6 +110,7 @@ public class WritingBoardFragment extends Fragment {
 
                             //가구 들어가서 파일 확인 및 textview 수정
                             writingBoardViewModel.tryWritingImg();
+
                         }
                     }
                 });
@@ -124,15 +129,13 @@ public class WritingBoardFragment extends Fragment {
         bt_writing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String boardNumber = "2";
-                String writerId = "1";
 
                 String title = et_title.getText().toString();
                 String latitude = String.valueOf(((MainActivity) getActivity()).getLatitude());
                 String longitude = String.valueOf(((MainActivity) getActivity()).getLongitude());
                 String address = ((MainActivity) getActivity()).getAddress();
 
-                writingBoardViewModel.setBoard(boardNumber, writerId, title, latitude, longitude, address);
+                writingBoardViewModel.setBoard(title, latitude, longitude, address);
                 writingBoardViewModel.tryWriting(writingBoardViewModel.getBoard());
 
                 writingBoardViewModel.getWritingComplete().observe(getViewLifecycleOwner(), new Observer<Boolean>() {

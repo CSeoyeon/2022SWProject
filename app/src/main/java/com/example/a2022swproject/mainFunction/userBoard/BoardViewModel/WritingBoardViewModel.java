@@ -29,14 +29,12 @@ public class WritingBoardViewModel extends ViewModel {
 
     private Board board = new Board();
     private Bitmap imgBitmap;
-    private String furnitureType;
+    private String furnitureType = "";
 
     public WritingBoardViewModel() {
     }
 
-    public void setBoard(String boardNumber, String writerId, String title, String latitude, String longitude, String address) {
-        board.setBoardNumber(boardNumber);
-        board.setWriterId(writerId);
+    public void setBoard( String title, String latitude, String longitude, String address) {
         board.setTitle(title);
         board.setLatitude(latitude);
         board.setLongitude(longitude);
@@ -68,6 +66,7 @@ public class WritingBoardViewModel extends ViewModel {
     }
 
     public void getFurnitureType_MV() throws IOException {
+        if(furnitureType.equals("")){}
         boardRepository.getFurnitureType(new SingleCallBack<Result<String>>() {
             @Override
             public void onComplete(Result<String> result) {
@@ -77,6 +76,7 @@ public class WritingBoardViewModel extends ViewModel {
                 }
             }
         });
+
     }
 
     public void setImgBitmap(Bitmap bitmap) {
@@ -99,5 +99,9 @@ public class WritingBoardViewModel extends ViewModel {
 
     public String getFurnitureType(){
         return furnitureType;
+    }
+
+    public void setFurnitureType(String furnitureType) {
+        this.furnitureType = furnitureType;
     }
 }

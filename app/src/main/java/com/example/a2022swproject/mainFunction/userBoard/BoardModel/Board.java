@@ -1,5 +1,7 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardModel;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.NonNull;
 
 public class Board {
@@ -13,6 +15,7 @@ public class Board {
     private String longitude;
     private String location;
     private String furnitureType = "checking Furniture";
+    private String boardImageByte;
 
     public Board(){}
 
@@ -78,6 +81,14 @@ public class Board {
 
     public void setFurnitureType(String furnitureType) {
         this.furnitureType = furnitureType;
+    }
+
+    public String getBoardImageByte() {
+        return boardImageByte;
+    }
+
+    public void setBoardImageByte(String boardImageByte) {
+        this.boardImageByte = boardImageByte;
     }
 
     @NonNull

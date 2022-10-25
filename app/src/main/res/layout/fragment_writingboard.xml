@@ -153,9 +153,10 @@
             android:textColor="#25D495"
             app:layout_constraintBottom_toTopOf="@+id/writingBoard_imgbtn_addImg"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.935"
             app:layout_constraintStart_toEndOf="@+id/writingBoard_tv_ex1"
             app:layout_constraintTop_toBottomOf="@+id/writingBoard_et_location"
             app:layout_constraintVertical_bias="1.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

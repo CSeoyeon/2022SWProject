@@ -31,6 +31,7 @@ public class InputUserInformationViewModel extends ViewModel {
             public void onComplete(Result<User> result) {
                 if (result instanceof Result.Success) {
                     User writingUserInformation = ((Result.Success<User>) result).getData();
+                    userRepository.setUserName(writingUserInformation.getUserName());
                     setUserDB.postValue(true);
                 }
             }

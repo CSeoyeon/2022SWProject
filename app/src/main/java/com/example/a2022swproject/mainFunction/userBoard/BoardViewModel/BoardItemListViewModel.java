@@ -25,6 +25,8 @@ public class BoardItemListViewModel extends ViewModel {
 
     private ArrayList<Board> boardArrayList = new ArrayList<>();
 
+    private byte[] boardImageByte;
+
     public void getBoardList() {
         boardRepository.getBoard(new SingleCallBack<Result<ArrayList>>() {
             @Override
@@ -32,6 +34,17 @@ public class BoardItemListViewModel extends ViewModel {
                 if (result instanceof Result.Success) {
                     boardArrayList = ((Result.Success<ArrayList<Board>>) result).getData();
                     getDBBoard.postValue(true);
+                }
+            }
+        });
+    }
+
+    public void getBoardImage(){
+        boardRepository.getBoardImage(new SingleCallBack<Result<byte[]>>() {
+            @Override
+            public void onComplete(Result<byte[]> result) {
+                if(result instanceof Result.Success){
+                    boardImageByte = ((Result.Success<byte[]>) result).getData();
                 }
             }
         });
@@ -45,6 +58,7 @@ public class BoardItemListViewModel extends ViewModel {
         return boardArrayList;
     }
 
-
-
+    public byte[] getBoardImageByte() {
+        return boardImageByte;
+    }
 }

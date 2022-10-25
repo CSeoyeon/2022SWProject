@@ -1,5 +1,7 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardModel;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.a2022swproject.databinding.ObjectBoarditemBinding;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.ViewHolder> {
 
     private ArrayList<Board> records;
 
+
     public BoardRecycleViewAdapter(ArrayList<Board> items) {
         this.records = items;
+
     }
 
     @NonNull
@@ -35,10 +45,14 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
         String title = records.get(position).getTitle();
         String writerName = records.get(position).getWriterName();
 
+        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //byte[] imageByte = (records.get(position).getBoardImageByte()).getBytes(StandardCharsets.UTF_8);
+        //Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+
         holder.tv_title.setText(title);
         holder.tv_userName.setText(writerName);
-
-        //holder.tv_title.setText("ewtwerterraeteat");
+        //holder.iv_boardImage.setImageBitmap(bitmap);
+        //holder.iv_boardImage.setImageBitmap(boardImageBitmap);
 
     }
 
