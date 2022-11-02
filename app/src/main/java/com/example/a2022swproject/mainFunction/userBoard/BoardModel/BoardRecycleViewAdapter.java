@@ -74,6 +74,18 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
             tv_userName = binding.boardItemTvUserName;
             tv_title = binding.boardItemTvTitle;
             iv_boardImage = binding.boardItemIvBoardImage;
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getBindingAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        //tv_title.setText("클릭됨 ");
+                    }
+
+                    notifyItemChanged(pos);
+                }
+            });
         }
 
         @Override
