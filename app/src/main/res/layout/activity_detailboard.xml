@@ -9,61 +9,62 @@
         android:id="@+id/detailBoard_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="56dp"
         android:text="title"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/detailBoard_tv_furniture"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.491" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/detailBoard_iv_boardImage"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/detailBoard_iv_boardImage"
-        android:layout_width="370dp"
-        android:layout_height="247dp"
-        android:layout_marginBottom="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/detailBoard_tv_location"
-        app:layout_constraintEnd_toEndOf="@+id/detailBoard_tv_furniture"
-        app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="@+id/detailBoard_tv_title"
+        android:layout_width="279dp"
+        android:layout_height="179dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailBoard_tv_title"
+        app:srcCompat="@android:drawable/progress_indeterminate_horizontal"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/detailBoard_tv_location"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginBottom="224dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="128dp"
         android:text="location"
         app:layout_constraintBottom_toTopOf="@+id/detailBoard_bt_takeAFurniture"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/detailBoard_iv_boardImage" />
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toStartOf="@+id/detailBoard_iv_boardImage"
+        app:layout_constraintTop_toBottomOf="@+id/detailBoard_iv_boardImage"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/detailBoard_tv_furniture"
         android:layout_width="wrap_content"
-        android:layout_height="29dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
         android:layout_marginBottom="8dp"
         android:text="furniture"
         app:layout_constraintBottom_toTopOf="@+id/detailBoard_iv_boardImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.941"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/detailBoard_iv_boardImage" />
 
     <Button
         android:id="@+id/detailBoard_bt_takeAFurniture"
-        android:layout_width="367dp"
-        android:layout_height="71dp"
+        android:layout_width="316dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="100dp"
         android:text="갖고가기"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.568"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.a2022swproject.databinding.ObjectBoarditemBinding;
-import com.example.a2022swproject.mainFunction.userBoard.BoardFragment.DetailBoardFragment;
+import com.example.a2022swproject.mainFunction.userBoard.DetailBoardActivity;
 import com.example.a2022swproject.mainFunction.userBoard.RecyclerViewInterface;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -92,24 +92,12 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
                         if (recyclerViewInterface != null) {
                             recyclerViewInterface.onItemClick(position);
                         }
-                        tv_title.setText("클릭됨 ");
                     }
 
                 }
             });
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    int pos = getBindingAdapterPosition();
-//                    if(pos != RecyclerView.NO_POSITION){
-//                        recyclerViewInterface.onItemClick(pos);
-//                        //tv_title.setText("클릭됨 ");
-//                    }
-//
-//                    //notifyItemChanged(pos);
-//                }
-//            });
+
         }
 
         @Override
