@@ -1,5 +1,6 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ public class BoardListFragment extends Fragment {
         BoardItemListFragment boardItemListFragment = new BoardItemListFragment();
         fragmentTransaction.replace(R.id.boardList_frameLayout, boardItemListFragment).commit();
     }
+
 
     @Override
     public void onDestroyView() {

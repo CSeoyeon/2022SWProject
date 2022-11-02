@@ -10,12 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.a2022swproject.databinding.ObjectBoarditemBinding;
+import com.example.a2022swproject.mainFunction.userBoard.BoardFragment.DetailBoardFragment;
+import com.example.a2022swproject.mainFunction.userBoard.RecyclerViewInterface;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -26,18 +30,22 @@ import java.util.ArrayList;
 
 public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.ViewHolder> {
 
+    private final RecyclerViewInterface recyclerViewInterface;
     private ArrayList<Board> records;
 
 
-    public BoardRecycleViewAdapter(ArrayList<Board> items) {
+    public BoardRecycleViewAdapter(ArrayList<Board> items, RecyclerViewInterface recyclerViewInterface) {
         this.records = items;
+        this.recyclerViewInterface = recyclerViewInterface;
 
     }
 
     @NonNull
     @Override
     public BoardRecycleViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new BoardRecycleViewAdapter.ViewHolder(ObjectBoarditemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new BoardRecycleViewAdapter.ViewHolder(
+                ObjectBoarditemBinding.inflate
+                        (LayoutInflater.from(parent.getContext()), parent, false), recyclerViewInterface);
     }
 
     @Override
@@ -62,13 +70,13 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         protected ImageView iv_userIcon;
         protected TextView tv_userName;
         protected TextView tv_title;
         protected ImageView iv_boardImage;
 
-        public ViewHolder(@NonNull ObjectBoarditemBinding binding) {
+        public ViewHolder(@NonNull ObjectBoarditemBinding binding, RecyclerViewInterface recyclerViewInterface) {
             super(binding.getRoot());
             iv_userIcon = binding.boardItemIvUserIcon;
             tv_userName = binding.boardItemTvUserName;
@@ -78,14 +86,30 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int pos = getBindingAdapterPosition();
-                    if(pos != RecyclerView.NO_POSITION){
-                        //tv_title.setText("클릭됨 ");
+                    int position = getBindingAdapterPosition();
+
+                    if (position != RecyclerView.NO_POSITION) {
+                        if (recyclerViewInterface != null) {
+                            recyclerViewInterface.onItemClick(position);
+                        }
+                        tv_title.setText("클릭됨 ");
                     }
 
-                    notifyItemChanged(pos);
                 }
             });
+
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int pos = getBindingAdapterPosition();
+//                    if(pos != RecyclerView.NO_POSITION){
+//                        recyclerViewInterface.onItemClick(pos);
+//                        //tv_title.setText("클릭됨 ");
+//                    }
+//
+//                    //notifyItemChanged(pos);
+//                }
+//            });
         }
 
         @Override

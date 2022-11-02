@@ -30,6 +30,7 @@
 
         </activity>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".mainFunction.userBoard.DetailBoardActivity"/>
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="597uigbp2b" />

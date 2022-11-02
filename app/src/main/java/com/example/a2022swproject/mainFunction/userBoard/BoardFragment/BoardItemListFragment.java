@@ -1,7 +1,7 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +15,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a2022swproject.databinding.FragmentBoarditemlistBinding;
-import com.example.a2022swproject.mainFunction.userBoard.BoardModel.Board;
-import com.example.a2022swproject.mainFunction.userBoard.BoardModel.BoardListItem;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.BoardRecycleViewAdapter;
 import com.example.a2022swproject.mainFunction.userBoard.BoardViewModel.BoardItemListViewModel;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import com.example.a2022swproject.mainFunction.userBoard.DetailBoardActivity;
+import com.example.a2022swproject.mainFunction.userBoard.RecyclerViewInterface;
 
 //BoardList 안에 들어가는 게시글 목록 화면
 public class BoardItemListFragment extends Fragment {
 
-    FragmentBoarditemlistBinding binding;
+    RecyclerViewInterface recyclerViewInterface = new RecyclerViewInterface() {
+        @Override
+        public void onItemClick(int position) {
+            Intent intent = new Intent(getContext(), DetailBoardActivity.class);
+            startActivity(intent);
+        }
+    };
 
+    FragmentBoarditemlistBinding binding;
     BoardItemListViewModel boardItemListViewModel;
     private BoardRecycleViewAdapter boardRecycleViewAdapter;
     private RecyclerView rv_boardView;
@@ -54,7 +58,7 @@ public class BoardItemListFragment extends Fragment {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
-                    boardRecycleViewAdapter = new BoardRecycleViewAdapter(boardItemListViewModel.getBoardArrayList());
+                    boardRecycleViewAdapter = new BoardRecycleViewAdapter(boardItemListViewModel.getBoardArrayList(),  recyclerViewInterface);
                     rv_boardView.setAdapter(boardRecycleViewAdapter);
                     rv_boardView.setLayoutManager(new LinearLayoutManager(requireContext()));
                     boardRecycleViewAdapter.notifyDataSetChanged();
@@ -63,4 +67,6 @@ public class BoardItemListFragment extends Fragment {
         });
 
     }
+
+
 }
