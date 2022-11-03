@@ -91,10 +91,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="@android:color/transparent"
-        android:text="비밀번호 찾기"
+        android:text="아이디, 비밀번호 찾기"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/signIn_bt_signUp"
         app:layout_constraintEnd_toEndOf="@+id/SignIn_et_password"
+        app:layout_constraintHorizontal_bias="0.264"
         app:layout_constraintStart_toEndOf="@+id/SignIn_tv_slash" />
 
     <Button

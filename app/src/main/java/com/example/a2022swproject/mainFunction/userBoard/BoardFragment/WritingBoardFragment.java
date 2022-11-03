@@ -21,6 +21,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -46,6 +47,7 @@ public class WritingBoardFragment extends Fragment {
     private ImageButton imgBtn_addImg;
     private Button bt_writing;
     private TextView tv_checkFurniture;
+    private NestedScrollView scrollView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class WritingBoardFragment extends Fragment {
         imgBtn_addImg = binding.writingBoardImgbtnAddImg;
         bt_writing = binding.writingBoardBtWriting;
         tv_checkFurniture = binding.writingBoardTvCheckFurniture;
-
+        scrollView = binding.writingBoardScroll;
         return binding.getRoot();
     }
 
