@@ -23,13 +23,7 @@ import com.example.a2022swproject.mainFunction.userBoard.RecyclerViewInterface;
 //BoardList 안에 들어가는 게시글 목록 화면
 public class BoardItemListFragment extends Fragment {
 
-    RecyclerViewInterface recyclerViewInterface = new RecyclerViewInterface() {
-        @Override
-        public void onItemClick(int position) {
-            Intent intent = new Intent(getContext(), DetailBoardActivity.class);
-            startActivity(intent);
-        }
-    };
+
 
     FragmentBoarditemlistBinding binding;
     BoardItemListViewModel boardItemListViewModel;
@@ -68,5 +62,18 @@ public class BoardItemListFragment extends Fragment {
 
     }
 
+    RecyclerViewInterface recyclerViewInterface = new RecyclerViewInterface() {
+        @Override
+        public void onItemClick(int position) {
+            Intent intent = new Intent(getContext(), DetailBoardActivity.class);
+            //수정 필요
+            intent.putExtra("Title", boardItemListViewModel.getBoardArrayList().get(position).getTitle());
+            intent.putExtra("furniture", boardItemListViewModel.getBoardArrayList().get(position).getFurnitureType());
+            intent.putExtra("location", boardItemListViewModel.getBoardArrayList().get(position).getLocation());
+            //intent.putExtra("boardImg", "보드 이미지");
+
+            startActivity(intent);
+        }
+    };
 
 }

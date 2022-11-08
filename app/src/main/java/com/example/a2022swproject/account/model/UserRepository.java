@@ -3,6 +3,7 @@ package com.example.a2022swproject.account.model;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -29,6 +30,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class UserRepository {
@@ -44,12 +46,14 @@ public class UserRepository {
     private String userPassword;
     private String userName;
     private int numberOfPost = 0;
+    private Bitmap bitmap_getUserIcon;
 
     private UserRepository(){}
     public static UserRepository getInstance(){return INSTANCE;}
 
 
-    public void setUserInformation(User user, Bitmap imgBitmap, SingleCallBack<Result<User>> callback){
+    public void setUserInformation(User user,  SingleCallBack<Result<User>> callback){
+
 
         //input a user information
         usersRef.document(userEmail)
@@ -67,23 +71,6 @@ public class UserRepository {
                     }
                 });
 
-        //input a user icon
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
-        StorageReference uploadRef = userIconImgStorage.getReference().child("userIconImg/"+ userEmail +".jpg");
-        UploadTask uploadTask = uploadRef.putBytes(data);
-
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-            }
-        });
 
     }
 
@@ -97,6 +84,7 @@ public class UserRepository {
                         if(task.isSuccessful()){
                            for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                User foundUser = documentSnapshot.toObject(User.class);
+
                                currUser = foundUser;
                                setUserName(currUser.getUserName());
                                callback.onComplete(new Result.Success<User>(currUser));
@@ -112,25 +100,25 @@ public class UserRepository {
 
     public Bitmap getUserIcon() throws IOException {
 
-        StorageReference downloadRef = userIconImgStorage.getReference().child("userIconImg/" + getUserEmail() + ".jpg");
+        //StorageReference downloadRef = userIconImgStorage.getReference().child("userIconImg/" + getUserEmail() + ".jpg");
+        StorageReference downloadRef = userIconImgStorage.getReference().child("userIconImg/" +"choiseoyeon0223@gmail.com" + ".jpg");
         File localFile = File.createTempFile("userIcon", "jpg");
-        final Bitmap[] userIconBitmap = new Bitmap[1];
 
         downloadRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 Bitmap tmpBitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                userIconBitmap[0] = tmpBitmap;
-                // Local temp file has been created
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
+
             }
         });
 
-        return userIconBitmap[0];
+        Log.v("bitmap_getUserIcon", "" + getBitmap_getUserIcon());
+        return getBitmap_getUserIcon();
 
     }
 
@@ -165,6 +153,14 @@ public class UserRepository {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Bitmap getBitmap_getUserIcon() {
+        return bitmap_getUserIcon;
+    }
+
+    public void setBitmap_getUserIcon(Bitmap bitmap_getUserIcon) {
+        this.bitmap_getUserIcon = bitmap_getUserIcon;
     }
 }
 

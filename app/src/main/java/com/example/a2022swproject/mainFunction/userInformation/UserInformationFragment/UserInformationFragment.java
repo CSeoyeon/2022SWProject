@@ -1,5 +1,6 @@
 package com.example.a2022swproject.mainFunction.userInformation.UserInformationFragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,8 +47,8 @@ public class UserInformationFragment extends Fragment {
 
         imgView_userIcon = binding.userInformationIvUserPicture;
         tv_userName = binding.userInformationTvUserName;
-        tv_numberOfPost = binding.userInformationTmptvBoardNumber;
-        tv_numberOfReceived = binding.userInformationTmptvReceiveNumber;
+        tv_numberOfPost = binding.userInformationTvBoardNumber;
+        tv_numberOfReceived = binding.userInformationTvReceiveNumber;
         bt_modifyInformation = binding.userInformationBtModifyInfo;
 
         return root;
@@ -66,13 +68,16 @@ public class UserInformationFragment extends Fragment {
 
         userInformationViewModel.getUserInformation_VM();
 
-        userInformationViewModel.getDBUser().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
 
+        userInformationViewModel.getDBUser().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean) {
-                    tv_userName.setText(userInformationViewModel.getUser().getUserName());
-
+                        tv_userName.setText(userInformationViewModel.getUser().getUserName());
+                        imgView_userIcon.setImageBitmap(userInformationViewModel.stringToBitmap(userInformationViewModel.getUser().getUserImage()));
+                        tv_numberOfPost.setText(Integer.toString(userInformationViewModel.getUser().getNumberOfPost()));
+                        tv_numberOfReceived.setText(Integer.toString(userInformationViewModel.getUser().getNumberOfItemReceived()));
 
                 } else {
                     tv_userName.setText(userInformationViewModel.getUserEmail());
@@ -80,12 +85,6 @@ public class UserInformationFragment extends Fragment {
             }
         });
 
-
-        try {
-            imgView_userIcon.setImageBitmap(userInformationViewModel.getUserIconBitmap());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 

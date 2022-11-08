@@ -6,7 +6,8 @@ public class User {
     private String password = "";
     private String userName = "";
     private int numberOfPost = 0;
-    private String numberOfItemReceived = "";
+    private int numberOfItemReceived = 0;
+    private String userImage = "";
 
     public User(){}
 
@@ -43,12 +44,20 @@ public class User {
         this.numberOfPost = numberOfPost;
     }
 
-    public String getNumberOfItemReceived() {
+    public int getNumberOfItemReceived() {
         return numberOfItemReceived;
     }
 
-    public void setNumberOfItemReceived(String numberOfItemReceived) {
+    public void setNumberOfItemReceived(int numberOfItemReceived) {
         this.numberOfItemReceived = numberOfItemReceived;
+    }
+
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String userImage) {
+        this.userImage = userImage;
     }
 }
 
