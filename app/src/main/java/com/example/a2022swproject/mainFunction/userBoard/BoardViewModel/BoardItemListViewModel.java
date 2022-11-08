@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.a2022swproject.CodeDetailFunction.BitmapTypeCasting;
 import com.example.a2022swproject.account.model.UserRepository;
 import com.example.a2022swproject.mainFunction.Result;
 import com.example.a2022swproject.mainFunction.SingleCallBack;
@@ -26,7 +27,6 @@ public class BoardItemListViewModel extends ViewModel {
 
 
     private BoardRepository boardRepository = BoardRepository.getInstance();
-
     private UserRepository userRepository = UserRepository.getInstance();
 
     private ArrayList<Board> boardArrayList = new ArrayList<>();
@@ -53,13 +53,5 @@ public class BoardItemListViewModel extends ViewModel {
         return boardArrayList;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public Bitmap stringToBitmap(String imgString) {
-        Bitmap bitmap = null;
-        byte[] bytes = Base64.getDecoder().decode(imgString);
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        bitmap = BitmapFactory.decodeStream(byteArrayInputStream);
-        return bitmap;
-    }
 
 }

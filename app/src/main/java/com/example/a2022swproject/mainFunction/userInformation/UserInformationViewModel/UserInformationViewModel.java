@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.a2022swproject.CodeDetailFunction.BitmapTypeCasting;
 import com.example.a2022swproject.account.model.User;
 import com.example.a2022swproject.account.model.UserRepository;
 import com.example.a2022swproject.mainFunction.Result;
@@ -24,6 +25,8 @@ public class UserInformationViewModel extends ViewModel {
     MutableLiveData<Boolean> getDBUser = new MutableLiveData<>(false);
 
     UserRepository userRepository = UserRepository.getInstance();
+    private BitmapTypeCasting bitmapTypeCasting = new BitmapTypeCasting();
+
     private User user= new User();
 
     public UserInformationViewModel() {}
@@ -42,11 +45,7 @@ public class UserInformationViewModel extends ViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Bitmap stringToBitmap(String imgString){
-        Bitmap bitmap = null;
-        byte[] bytes = Base64.getDecoder().decode(imgString);
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        bitmap = BitmapFactory.decodeStream(byteArrayInputStream);
-        return bitmap;
+        return bitmapTypeCasting.stringToBitmap(imgString);
     }
 
 

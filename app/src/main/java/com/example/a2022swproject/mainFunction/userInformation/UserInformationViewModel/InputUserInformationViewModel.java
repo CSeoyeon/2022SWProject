@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.a2022swproject.CodeDetailFunction.BitmapTypeCasting;
 import com.example.a2022swproject.account.model.User;
 import com.example.a2022swproject.account.model.UserRepository;
 import com.example.a2022swproject.mainFunction.Result;
@@ -21,6 +22,7 @@ public class InputUserInformationViewModel extends ViewModel {
     MutableLiveData<Boolean> setUserDB = new MutableLiveData<>(false);
 
     private UserRepository userRepository = UserRepository.getInstance();
+    private BitmapTypeCasting bitmapTypeCasting = new BitmapTypeCasting();
 
     private User user = new User();
     private Bitmap imgBitmap;
@@ -37,7 +39,7 @@ public class InputUserInformationViewModel extends ViewModel {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void tryWritingInformation(User user) {
-        addBitmapFromUserInformation(user, bitmapToString(imgBitmap));
+        addBitmapFromUserInformation(user, bitmapTypeCasting.bitmapToString(imgBitmap));
 
         userRepository.setUserInformation(user, new SingleCallBack<Result<User>>() {
             @Override
@@ -51,15 +53,6 @@ public class InputUserInformationViewModel extends ViewModel {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public String bitmapToString(Bitmap bitmap){
-        String img = "";
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] bytes = byteArrayOutputStream.toByteArray();
-        img = Base64.getEncoder().encodeToString(bytes);
-        return img;
-    }
 
     public void setImgBitmap(Bitmap imgBitmap) {
         this.imgBitmap = imgBitmap;

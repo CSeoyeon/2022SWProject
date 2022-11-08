@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
+import com.example.a2022swproject.CodeDetailFunction.BitmapTypeCasting;
 import com.example.a2022swproject.databinding.ObjectBoarditemBinding;
 import com.example.a2022swproject.mainFunction.userBoard.RecyclerViewInterface;
 
@@ -25,7 +26,7 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
 
     private final RecyclerViewInterface recyclerViewInterface;
     private ArrayList<Board> records;
-
+    private BitmapTypeCasting bitmapTypeCasting = new BitmapTypeCasting();
 
     public BoardRecycleViewAdapter(ArrayList<Board> items, RecyclerViewInterface recyclerViewInterface) {
         this.records = items;
@@ -50,7 +51,7 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
 
         holder.tv_title.setText(title);
         holder.tv_userName.setText(writerName);
-        holder.iv_boardImage.setImageBitmap(stringToBitmap(ImgBitmap));
+        holder.iv_boardImage.setImageBitmap(bitmapTypeCasting.stringToBitmap(ImgBitmap));
 
     }
 
@@ -94,12 +95,4 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public Bitmap stringToBitmap(String imgString) {
-        Bitmap bitmap = null;
-        byte[] bytes = Base64.getDecoder().decode(imgString);
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        bitmap = BitmapFactory.decodeStream(byteArrayInputStream);
-        return bitmap;
-    }
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.a2022swproject.CodeDetailFunction.BitmapTypeCasting;
 import com.example.a2022swproject.account.model.User;
 import com.example.a2022swproject.mainFunction.Result;
 import com.example.a2022swproject.mainFunction.SingleCallBack;
@@ -27,7 +28,7 @@ public class WritingBoardViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> putImage = new MutableLiveData<>(false);
     private MutableLiveData<Boolean> furniture = new MutableLiveData<>(false);
-
+    private BitmapTypeCasting bitmapTypeCasting = new BitmapTypeCasting();
     private User user = new User();
 
 
@@ -52,7 +53,7 @@ public class WritingBoardViewModel extends ViewModel {
     //게시글 작성
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void tryWriting(Board board) {
-        addBitmapFromBoard(board, bitmapToString(imgBitmap));
+        addBitmapFromBoard(board, bitmapTypeCasting.bitmapToString(imgBitmap));
 
         boardRepository.writeBoard(board, new SingleCallBack<Result<Board>>() {
             @Override
@@ -90,15 +91,6 @@ public class WritingBoardViewModel extends ViewModel {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public String bitmapToString(Bitmap bitmap){
-        String img = "";
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] bytes = byteArrayOutputStream.toByteArray();
-        img = Base64.getEncoder().encodeToString(bytes);
-        return img;
-    }
 
     public void setImgBitmap(Bitmap bitmap) {
         this.imgBitmap = bitmap;
