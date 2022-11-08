@@ -1,7 +1,9 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardViewModel;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,8 +14,10 @@ import com.example.a2022swproject.mainFunction.SingleCallBack;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.Board;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.BoardRepository;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class WritingBoardViewModel extends ViewModel {
 
@@ -41,8 +45,15 @@ public class WritingBoardViewModel extends ViewModel {
         board.setLocation(address);
     }
 
+    public void addBitmapFromBoard(Board board, String bitmapToString){
+        board.setBoardImageByte(bitmapToString);
+    }
+
     //게시글 작성
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void tryWriting(Board board) {
+        addBitmapFromBoard(board, bitmapToString(imgBitmap));
+
         boardRepository.writeBoard(board, new SingleCallBack<Result<Board>>() {
             @Override
             public void onComplete(Result<Board> result) {
@@ -77,6 +88,16 @@ public class WritingBoardViewModel extends ViewModel {
             }
         });
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String bitmapToString(Bitmap bitmap){
+        String img = "";
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        img = Base64.getEncoder().encodeToString(bytes);
+        return img;
     }
 
     public void setImgBitmap(Bitmap bitmap) {

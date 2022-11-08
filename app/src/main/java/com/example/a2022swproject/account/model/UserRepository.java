@@ -45,15 +45,14 @@ public class UserRepository {
     private String userEmail;
     private String userPassword;
     private String userName;
+    private String userIconImage;
     private int numberOfPost = 0;
-    private Bitmap bitmap_getUserIcon;
 
     private UserRepository(){}
     public static UserRepository getInstance(){return INSTANCE;}
 
 
     public void setUserInformation(User user,  SingleCallBack<Result<User>> callback){
-
 
         //input a user information
         usersRef.document(userEmail)
@@ -98,29 +97,6 @@ public class UserRepository {
 
     }
 
-    public Bitmap getUserIcon() throws IOException {
-
-        //StorageReference downloadRef = userIconImgStorage.getReference().child("userIconImg/" + getUserEmail() + ".jpg");
-        StorageReference downloadRef = userIconImgStorage.getReference().child("userIconImg/" +"choiseoyeon0223@gmail.com" + ".jpg");
-        File localFile = File.createTempFile("userIcon", "jpg");
-
-        downloadRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                Bitmap tmpBitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-
-            }
-        });
-
-        Log.v("bitmap_getUserIcon", "" + getBitmap_getUserIcon());
-        return getBitmap_getUserIcon();
-
-    }
 
 
     public String getUserEmail() {
@@ -155,13 +131,6 @@ public class UserRepository {
         this.userName = userName;
     }
 
-    public Bitmap getBitmap_getUserIcon() {
-        return bitmap_getUserIcon;
-    }
-
-    public void setBitmap_getUserIcon(Bitmap bitmap_getUserIcon) {
-        this.bitmap_getUserIcon = bitmap_getUserIcon;
-    }
 }
 
 

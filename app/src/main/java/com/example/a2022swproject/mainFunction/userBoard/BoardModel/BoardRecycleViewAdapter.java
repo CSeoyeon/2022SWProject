@@ -2,7 +2,7 @@ package com.example.a2022swproject.mainFunction.userBoard.BoardModel;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.a2022swproject.databinding.ObjectBoarditemBinding;
-import com.example.a2022swproject.mainFunction.userBoard.DetailBoardActivity;
 import com.example.a2022swproject.mainFunction.userBoard.RecyclerViewInterface;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.io.ByteArrayOutputStream;
-import java.lang.reflect.Field;
-import java.nio.charset.StandardCharsets;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.ViewHolder> {
 
@@ -48,19 +41,16 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
                         (LayoutInflater.from(parent.getContext()), parent, false), recyclerViewInterface);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String title = records.get(position).getTitle();
         String writerName = records.get(position).getWriterName();
-
-        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        //byte[] imageByte = (records.get(position).getBoardImageByte()).getBytes(StandardCharsets.UTF_8);
-        //Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+        String ImgBitmap = records.get(position).getBoardImageByte();
 
         holder.tv_title.setText(title);
         holder.tv_userName.setText(writerName);
-        //holder.iv_boardImage.setImageBitmap(bitmap);
-        //holder.iv_boardImage.setImageBitmap(boardImageBitmap);
+        holder.iv_boardImage.setImageBitmap(stringToBitmap(ImgBitmap));
 
     }
 
@@ -87,22 +77,29 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
                 @Override
                 public void onClick(View view) {
                     int position = getBindingAdapterPosition();
-
                     if (position != RecyclerView.NO_POSITION) {
                         if (recyclerViewInterface != null) {
                             recyclerViewInterface.onItemClick(position);
                         }
                     }
-
                 }
             });
 
-
         }
+
 
         @Override
         public String toString() {
             return super.toString();
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Bitmap stringToBitmap(String imgString) {
+        Bitmap bitmap = null;
+        byte[] bytes = Base64.getDecoder().decode(imgString);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+        bitmap = BitmapFactory.decodeStream(byteArrayInputStream);
+        return bitmap;
     }
 }

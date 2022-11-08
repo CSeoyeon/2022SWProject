@@ -46,7 +46,7 @@ public class BoardItemListFragment extends Fragment {
 
         boardItemListViewModel.getBoardList();
 
-        boardItemListViewModel.getBoardImage();
+        //boardItemListViewModel.getBoardImage();
 
         boardItemListViewModel.getDBBoard().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
@@ -70,7 +70,7 @@ public class BoardItemListFragment extends Fragment {
             intent.putExtra("Title", boardItemListViewModel.getBoardArrayList().get(position).getTitle());
             intent.putExtra("furniture", boardItemListViewModel.getBoardArrayList().get(position).getFurnitureType());
             intent.putExtra("location", boardItemListViewModel.getBoardArrayList().get(position).getLocation());
-            //intent.putExtra("boardImg", "보드 이미지");
+            //intent.putExtra("boardImgStringByte", boardItemListViewModel.getBoardArrayList().get(position).getBoardImageByte());
 
             startActivity(intent);
         }

@@ -103,7 +103,6 @@ public class BoardRepository {
         board.setWriterId(userRepository.getUserEmail());
         board.setWriterName(userRepository.getUserName());
         board.setBoardNumber(userRepository.getUserEmail() + "_"+ userRepository.getNumberOfPost());
-
         board.setFurnitureType(furnitureType);
 
         //글 삽입
@@ -164,24 +163,24 @@ public class BoardRepository {
 
     }
 
-    public void getBoardImage(SingleCallBack<Result<byte[]>> callBack){
-        final long ONE_MEGABYTE = 1024 * 1024;
-        boardImagesRef
-                .child("choiseoyeon0223@gmail.com_0")
-                .getBytes(ONE_MEGABYTE)
-                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        callBack.onComplete(new Result.Success<byte[]>(bytes));
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-    }
+//    public void getBoardImage(SingleCallBack<Result<byte[]>> callBack){
+//        final long ONE_MEGABYTE = 1024 * 1024;
+//        boardImagesRef
+//                .child("choiseoyeon0223@gmail.com_0")
+//                .getBytes(ONE_MEGABYTE)
+//                .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                    @Override
+//                    public void onSuccess(byte[] bytes) {
+//                        callBack.onComplete(new Result.Success<byte[]>(bytes));
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//
+//                    }
+//                });
+//    }
 
     //게시판 불러오기
     public void getBoard(SingleCallBack<Result<ArrayList>> callBack){

@@ -24,7 +24,6 @@ public class InputUserInformationViewModel extends ViewModel {
 
     private User user = new User();
     private Bitmap imgBitmap;
-    private String imgBitmapToString;
 
     public void setUserInformation(String email, String name) {
         user.setUserEmail(email);

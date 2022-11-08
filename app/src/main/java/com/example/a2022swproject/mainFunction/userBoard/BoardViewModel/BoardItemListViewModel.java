@@ -1,7 +1,11 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardViewModel;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,7 +16,9 @@ import com.example.a2022swproject.mainFunction.SingleCallBack;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.Board;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.BoardRepository;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class BoardItemListViewModel extends ViewModel {
 
@@ -25,7 +31,6 @@ public class BoardItemListViewModel extends ViewModel {
 
     private ArrayList<Board> boardArrayList = new ArrayList<>();
 
-    private byte[] boardImageByte;
 
     public void getBoardList() {
         boardRepository.getBoard(new SingleCallBack<Result<ArrayList>>() {
@@ -39,16 +44,6 @@ public class BoardItemListViewModel extends ViewModel {
         });
     }
 
-    public void getBoardImage(){
-        boardRepository.getBoardImage(new SingleCallBack<Result<byte[]>>() {
-            @Override
-            public void onComplete(Result<byte[]> result) {
-                if(result instanceof Result.Success){
-                    boardImageByte = ((Result.Success<byte[]>) result).getData();
-                }
-            }
-        });
-    }
 
     public LiveData<Boolean> getDBBoard() {
         return getDBBoard;
@@ -58,7 +53,13 @@ public class BoardItemListViewModel extends ViewModel {
         return boardArrayList;
     }
 
-    public byte[] getBoardImageByte() {
-        return boardImageByte;
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Bitmap stringToBitmap(String imgString) {
+        Bitmap bitmap = null;
+        byte[] bytes = Base64.getDecoder().decode(imgString);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+        bitmap = BitmapFactory.decodeStream(byteArrayInputStream);
+        return bitmap;
     }
+
 }
