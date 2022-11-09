@@ -1,5 +1,6 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardFragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class BoardItemListFragment extends Fragment {
 
         boardItemListViewModel.getBoardList();
         boardItemListViewModel.getDBBoard().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
@@ -53,6 +55,7 @@ public class BoardItemListFragment extends Fragment {
                     rv_boardView.setAdapter(boardRecycleViewAdapter);
                     rv_boardView.setLayoutManager(new LinearLayoutManager(requireContext()));
                     boardRecycleViewAdapter.notifyDataSetChanged();
+
                 }
             }
         });

@@ -1,5 +1,6 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardModel;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -46,9 +47,11 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
                         (LayoutInflater.from(parent.getContext()), parent, false), recyclerViewInterface);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         String title = records.get(position).getTitle();
         String writerName = boardWriter.getUserName();
         String ImgBitmap = records.get(position).getBoardImageByte();
