@@ -3,6 +3,7 @@ package com.example.a2022swproject.mainFunction.userBoard.BoardModel;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.a2022swproject.CodeDetailFunction.BitmapTypeCasting;
+import com.example.a2022swproject.account.model.User;
 import com.example.a2022swproject.databinding.ObjectBoarditemBinding;
 import com.example.a2022swproject.mainFunction.userBoard.RecyclerViewInterface;
 
@@ -27,9 +29,11 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
     private final RecyclerViewInterface recyclerViewInterface;
     private ArrayList<Board> records;
     private BitmapTypeCasting bitmapTypeCasting = new BitmapTypeCasting();
+    private User boardWriter;
 
-    public BoardRecycleViewAdapter(ArrayList<Board> items, RecyclerViewInterface recyclerViewInterface) {
+    public BoardRecycleViewAdapter(ArrayList<Board> items, User boardWriter, RecyclerViewInterface recyclerViewInterface) {
         this.records = items;
+        this.boardWriter = boardWriter;
         this.recyclerViewInterface = recyclerViewInterface;
 
     }
@@ -46,9 +50,10 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String title = records.get(position).getTitle();
-        String writerName = records.get(position).getWriterName();
+        String writerName = boardWriter.getUserName();
         String ImgBitmap = records.get(position).getBoardImageByte();
 
+        Log.v("boardWriter", " "+ writerName);
         holder.tv_title.setText(title);
         holder.tv_userName.setText(writerName);
         holder.iv_boardImage.setImageBitmap(bitmapTypeCasting.stringToBitmap(ImgBitmap));

@@ -45,14 +45,11 @@ public class BoardItemListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         boardItemListViewModel.getBoardList();
-
-        //boardItemListViewModel.getBoardImage();
-
         boardItemListViewModel.getDBBoard().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
-                    boardRecycleViewAdapter = new BoardRecycleViewAdapter(boardItemListViewModel.getBoardArrayList(),  recyclerViewInterface);
+                    boardRecycleViewAdapter = new BoardRecycleViewAdapter(boardItemListViewModel.getBoardArrayList(), boardItemListViewModel.getUserInfo_VM(),  recyclerViewInterface);
                     rv_boardView.setAdapter(boardRecycleViewAdapter);
                     rv_boardView.setLayoutManager(new LinearLayoutManager(requireContext()));
                     boardRecycleViewAdapter.notifyDataSetChanged();
@@ -62,15 +59,21 @@ public class BoardItemListFragment extends Fragment {
 
     }
 
-    RecyclerViewInterface recyclerViewInterface = new RecyclerViewInterface() {
+    final RecyclerViewInterface recyclerViewInterface = new RecyclerViewInterface() {
         @Override
         public void onItemClick(int position) {
             Intent intent = new Intent(getContext(), DetailBoardActivity.class);
-            //수정 필요
-            intent.putExtra("Title", boardItemListViewModel.getBoardArrayList().get(position).getTitle());
-            intent.putExtra("furniture", boardItemListViewModel.getBoardArrayList().get(position).getFurnitureType());
-            intent.putExtra("location", boardItemListViewModel.getBoardArrayList().get(position).getLocation());
-            //intent.putExtra("boardImgStringByte", boardItemListViewModel.getBoardArrayList().get(position).getBoardImageByte());
+            Bundle bundle = new Bundle();
+
+            //image는 byte 용량 초과로 보낼 수 없음.
+
+            bundle.putString("boardNumber", boardItemListViewModel.getBoardArrayList().get(position).getBoardNumber());
+            bundle.putString("Title", boardItemListViewModel.getBoardArrayList().get(position).getTitle());
+            bundle.putString("furniture", boardItemListViewModel.getBoardArrayList().get(position).getFurnitureType());
+            bundle.putString("location", boardItemListViewModel.getBoardArrayList().get(position).getLocation());
+
+            intent.putExtras(bundle);
+
 
             startActivity(intent);
         }

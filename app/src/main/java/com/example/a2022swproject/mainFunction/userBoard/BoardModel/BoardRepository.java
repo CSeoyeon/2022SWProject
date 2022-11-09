@@ -164,7 +164,7 @@ public class BoardRepository {
     }
 
 
-    //게시판 불러오기
+    //BoardItemList- 게시판 불러오기
     public void getBoard(SingleCallBack<Result<ArrayList>> callBack){
         boardRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

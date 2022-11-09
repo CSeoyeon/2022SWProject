@@ -62,6 +62,7 @@ public class UserRepository {
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
                             callback.onComplete(new Result.Success<User>(currUser));
+                            currUser = user;
                             Log.v("BoardRepository Complete", " : " + UserRepository.this.toString() );
                         }
                         else{
@@ -74,7 +75,6 @@ public class UserRepository {
     }
 
     public void getUserInformation(SingleCallBack<Result<User>> callback){
-
         usersRef.whereEqualTo("userEmail", userEmail)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -131,6 +131,13 @@ public class UserRepository {
         this.userName = userName;
     }
 
+    public User getCurrUser() {
+        return currUser;
+    }
+
+    public void setCurrUser(User currUser) {
+        this.currUser = currUser;
+    }
 }
 
 

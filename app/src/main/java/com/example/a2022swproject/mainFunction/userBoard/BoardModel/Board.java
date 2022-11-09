@@ -16,6 +16,7 @@ public class Board {
     private String location;
     private String furnitureType = "checking Furniture";
     private String boardImageByte;
+    private boolean takeAFurniture = false;
 
     public Board(){}
 
@@ -90,6 +91,15 @@ public class Board {
     public void setBoardImageByte(String boardImageByte) {
         this.boardImageByte = boardImageByte;
     }
+
+    public boolean isTakeAFurniture() {
+        return takeAFurniture;
+    }
+
+    public void setTakeAFurniture(boolean takeAFurniture) {
+        this.takeAFurniture = takeAFurniture;
+    }
+
 
     @NonNull
     @Override

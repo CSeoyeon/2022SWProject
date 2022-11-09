@@ -32,6 +32,7 @@ public class UserInformationViewModel extends ViewModel {
     public UserInformationViewModel() {}
 
     public void getUserInformation_VM(){
+
         userRepository.getUserInformation(new SingleCallBack<Result<User>>() {
             @Override
             public void onComplete(Result<User> result) {
