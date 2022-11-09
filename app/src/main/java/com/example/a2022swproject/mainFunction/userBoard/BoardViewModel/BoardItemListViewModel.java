@@ -50,10 +50,11 @@ public class BoardItemListViewModel extends ViewModel {
         return boardWriter;
     }
 
+
+
     public LiveData<Boolean> getDBBoard() {
         return getDBBoard;
     }
-
     public ArrayList<Board> getBoardArrayList() {
         return boardArrayList;
     }

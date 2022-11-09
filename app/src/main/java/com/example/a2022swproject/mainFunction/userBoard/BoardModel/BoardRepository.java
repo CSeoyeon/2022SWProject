@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.ArrayTable;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -56,6 +57,7 @@ public class BoardRepository {
 
     private Board currentBoard;
     private ArrayList<Board> boardList;
+    private ArrayList<Board> detailBoardList;
     private BoardRepository() {}
 
     private String furnitureType = "can not find";
@@ -187,6 +189,39 @@ public class BoardRepository {
 
                     }
                 });
+
+    }
+
+    //DetailBoardActivity- 게시판 불러오기
+    public void getDetailBoard(String boardNumber, SingleCallBack<Result<Board>> callBack){
+        boardRef.whereEqualTo("boardNumber", boardNumber)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            ArrayList<Board> tmpBoard = new ArrayList<>();
+                            for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                Board founderBoard = documentSnapshot.toObject(Board.class);
+                                tmpBoard.add(founderBoard);
+                            }
+                            detailBoardList = tmpBoard;
+                            callBack.onComplete(new Result.Success<Board>(detailBoardList.get(0)));
+
+                        };
+                    }
+                });
+    }
+
+    public void setBoardTakingState(String boardNumber, SingleCallBack<Result<Boolean>> callBack){
+        DocumentReference documentReference = boardRef.document(boardNumber);
+        documentReference.update("takeAFurniture", true)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                callBack.onComplete(new Result.Success<Boolean>(true));
+                            }
+                        });
 
     }
 

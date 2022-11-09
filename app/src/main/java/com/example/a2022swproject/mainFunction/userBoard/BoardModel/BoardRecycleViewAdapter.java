@@ -52,12 +52,19 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
         String title = records.get(position).getTitle();
         String writerName = boardWriter.getUserName();
         String ImgBitmap = records.get(position).getBoardImageByte();
+        Boolean furnitureTakingState = records.get(position).isTakeAFurniture();
 
         Log.v("boardWriter", " "+ writerName);
         holder.tv_title.setText(title);
         holder.tv_userName.setText(writerName);
         holder.iv_boardImage.setImageBitmap(bitmapTypeCasting.stringToBitmap(ImgBitmap));
 
+        if(furnitureTakingState){
+            holder.tv_furnitureTakingState.setText("완료된 글");
+        }
+        else{
+            holder.tv_furnitureTakingState.setText("");
+        }
     }
 
     @Override
@@ -70,6 +77,7 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
         protected ImageView iv_userIcon;
         protected TextView tv_userName;
         protected TextView tv_title;
+        protected TextView tv_furnitureTakingState;
         protected ImageView iv_boardImage;
 
         public ViewHolder(@NonNull ObjectBoarditemBinding binding, RecyclerViewInterface recyclerViewInterface) {
@@ -77,7 +85,9 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
             iv_userIcon = binding.boardItemIvUserIcon;
             tv_userName = binding.boardItemTvUserName;
             tv_title = binding.boardItemTvTitle;
+            tv_furnitureTakingState = binding.boardItemTvFurnitureTakingState;
             iv_boardImage = binding.boardItemIvBoardImage;
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,7 +102,6 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
             });
 
         }
-
 
         @Override
         public String toString() {

@@ -165,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         BoardListFragment boardListFragment = new BoardListFragment();
         switch(item.getItemId()){
             case R.id.navigation_boardList:
-                Log.v("눌러지긴 함", "");
                 transaction.replace(R.id.nav_host_fragment_activity_main, boardListFragment).commit();
                 break;
         }

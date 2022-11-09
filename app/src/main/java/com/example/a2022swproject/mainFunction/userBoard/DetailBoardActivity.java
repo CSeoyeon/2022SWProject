@@ -1,5 +1,6 @@
 package com.example.a2022swproject.mainFunction.userBoard;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,12 +17,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.a2022swproject.CodeDetailFunction.BitmapTypeCasting;
 import com.example.a2022swproject.R;
 import com.example.a2022swproject.databinding.ActivityDetailboardBinding;
 import com.example.a2022swproject.mainFunction.Result;
 import com.example.a2022swproject.mainFunction.SingleCallBack;
+import com.example.a2022swproject.mainFunction.userBoard.BoardFragment.BoardItemListFragment;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.Board;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.BoardRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,12 +40,13 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 
-public class DetailBoardActivity extends AppCompatActivity{
+public class DetailBoardActivity extends AppCompatActivity {
 
     private ActivityDetailboardBinding binding;
     private FirebaseFirestore boardStorage = FirebaseFirestore.getInstance();
     private CollectionReference boardRef = boardStorage.collection("board");
 
+    private BoardRepository boardRepository = BoardRepository.getInstance();
     private BitmapTypeCasting bitmapTypeCasting = new BitmapTypeCasting();
 
     private TextView tv_title;
@@ -56,12 +62,12 @@ public class DetailBoardActivity extends AppCompatActivity{
     private String furniture;
     private String imgBitmapString;
 
+    @SuppressLint("MissingInflatedId")
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailboard);
-
 
 
         binding = ActivityDetailboardBinding.inflate(getLayoutInflater());
@@ -78,59 +84,61 @@ public class DetailBoardActivity extends AppCompatActivity{
         Bundle extras = intent.getExtras();
 
 
-        if(extras != null){
+        if (extras != null) {
             boardNumber = extras.getString("boardNumber");
-        }
-        else{
+        } else {
             Log.v("Detail Board Activity", "bundle empty");
         }
 
 
-        // 받은 boardNumber 로 직접 board import
-        // 메소드로 만들고 board객체만 빼내야하는데...매칭이 안 되고 null값만 나와서 이렇게..
-        boardRef.whereEqualTo("boardNumber", boardNumber)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                                Board founderBoard = documentSnapshot.toObject(Board.class);
-                                currentBoard = founderBoard;
+        boardRepository.getDetailBoard(boardNumber, new SingleCallBack<Result<Board>>() {
+            @Override
+            public void onComplete(Result<Board> result) {
+                if (result instanceof Result.Success) {
+                    currentBoard = ((Result.Success<Board>) result).getData();
+                }
 
-                                title = currentBoard.getTitle();
-                                imgBitmapString = currentBoard.getBoardImageByte();
-                                furniture = currentBoard.getFurnitureType();
-                                location = currentBoard.getLocation();
+                title = currentBoard.getTitle();
+                imgBitmapString = currentBoard.getBoardImageByte();
+                furniture = currentBoard.getFurnitureType();
+                location = currentBoard.getLocation();
 
-                                tv_title.setText(title);
-                                imgView_boardImg.setImageBitmap(bitmapTypeCasting.stringToBitmap(currentBoard.getBoardImageByte()));
-                                tv_furniture.setText(furniture);
-                                tv_location.setText(location);
+                tv_title.setText(title);
+                imgView_boardImg.setImageBitmap(bitmapTypeCasting.stringToBitmap(currentBoard.getBoardImageByte()));
+                tv_furniture.setText(furniture);
+                tv_location.setText(location);
 
-                            }
-                        };
-                    }
-                });
+            }
+        });
 
-
-
-
+        //take a Furniture (false -> true)
         bt_takeAFurniture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //take a Furniture (false에서 true로 번경)
-                finish();
+                boardRepository.setBoardTakingState(boardNumber, new SingleCallBack<Result<Boolean>>() {
+                    @Override
+                    public void onComplete(Result<Boolean> result) {
 
+                        if (result instanceof Result.Success) {
 
-                //board item List에서 완료된 글이라 뜨기
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
+                            BoardItemListFragment boardItemListFragment = new BoardItemListFragment();
+                            fragmentTransaction.replace(R.id.detailBoard, boardItemListFragment);
+                            fragmentTransaction.commit();
+                            finish();
 
+                        }
+
+                    }
+                });
 
             }
         });
 
     }
+
 
 }
