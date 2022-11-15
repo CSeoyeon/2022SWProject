@@ -48,10 +48,7 @@ import java.util.Base64;
 public class BoardRepository {
 
     private static BoardRepository INSTANCE = new BoardRepository();
-
-    //firebasefirestore -> text, firebaseStorage ->image
     private FirebaseFirestore foreStore = FirebaseFirestore.getInstance();
-
     private CollectionReference imageRef = foreStore.collection("tmpImage");
     private CollectionReference boardRef = foreStore.collection("board");
 
@@ -62,12 +59,9 @@ public class BoardRepository {
     private ArrayList<Board> detailBoardList;
     private BoardRepository() {}
 
-    private String furnitureType = "can not find";
     private String currentBoardNumber = "";
 
     public static BoardRepository getInstance(){return INSTANCE;}
-
-    private String boardImageByte;
 
     //이미지 삽입
     public void writingBoardImg(String boardImageByteString, SingleCallBack<Result<Board>> callback){
@@ -94,6 +88,32 @@ public class BoardRepository {
                     }
                 });
 
+    }
+
+    //get learned FurnitureType
+    public void getFurnitureType(SingleCallBack<Result<String>> callBack) throws IOException {
+        String boardNumber = userRepository.getUserEmail() + "_" +
+                userRepository.getNumberOfPost();
+
+        //후에 document 주소값 boardnumber로 수정
+        imageRef.document("tmp").addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    callBack.onComplete(new Result.Success<String>((String) snapshot.get("result")));
+                    Log.d(TAG, "Current data: " + snapshot.get("result"));
+                } else {
+                    Log.d(TAG, "Current data: null");
+                }
+            }
+        });
     }
 
 
@@ -124,30 +144,11 @@ public class BoardRepository {
        userRepository.setNumberOfPost(userRepository.getNumberOfPost()+1);
     }
 
-    public void getFurnitureType(SingleCallBack<Result<String>> callBack) throws IOException {
-        String boardNumber = userRepository.getUserEmail() + "_" +
-                userRepository.getNumberOfPost();
-
-        //후에 document 주소값 boardnumber로 수정
-        imageRef.document("tmp").addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-
-                    Log.w(TAG, "Listen failed.", e);
-                    return;
-                }
-
-                if (snapshot != null && snapshot.exists()) {
-                    callBack.onComplete(new Result.Success<String>((String) snapshot.get("result")));
-                    Log.d(TAG, "Current data: " + snapshot.get("result"));
-                } else {
-                    Log.d(TAG, "Current data: null");
-                }
-            }
-        });
+    //delete learned document (firestore)
+    public void deleteLearnedImageDocument(){
+        imageRef.document("tmp").delete();
     }
+
 
 
     //BoardItemList- 게시판 불러오기
@@ -219,9 +220,6 @@ public class BoardRepository {
         this.currentBoardNumber = currentBoardNumber;
     }
 
-    public void setFurnitureType(String furnitureType) {
-        this.furnitureType = furnitureType;
-    }
 }
 
 

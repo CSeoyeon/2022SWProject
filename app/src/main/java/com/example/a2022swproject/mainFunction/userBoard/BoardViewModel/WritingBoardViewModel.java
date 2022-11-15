@@ -61,6 +61,7 @@ public class WritingBoardViewModel extends ViewModel {
             public void onComplete(Result<Board> result) {
                 if (result instanceof Result.Success) {
                     Board writingBoard = ((Result.Success<Board>) result).getData();
+                    boardRepository.deleteLearnedImageDocument();
                     writingCompleted.postValue(true);
                 }
             }
