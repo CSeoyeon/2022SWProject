@@ -17,13 +17,16 @@ import java.util.ArrayList;
 
 public class BoardItemListViewModel extends ViewModel {
 
+    private User boardWriter = new User();
+
     MutableLiveData<Boolean> getDBBoard = new MutableLiveData<>(false);
+    MutableLiveData<User> getDBUser = new MutableLiveData<>(boardWriter);
 
     private UserRepository userRepository = UserRepository.getInstance();
     private BoardRepository boardRepository = BoardRepository.getInstance();
     private ArrayList<Board> boardArrayList = new ArrayList<>();
 
-    private User boardWriter = new User();
+
 
     public void getBoardList() {
         boardRepository.getBoard(new SingleCallBack<Result<ArrayList>>() {
@@ -37,17 +40,16 @@ public class BoardItemListViewModel extends ViewModel {
         });
     }
 
-    public User getUserInfo_VM(){
+    public void getUserInfo_VM(){
         userRepository.getUserInformation(new SingleCallBack<Result<User>>() {
             @Override
             public void onComplete(Result<User> result) {
                 if(result instanceof  Result.Success){
                     boardWriter = ((Result.Success<User>) result).getData();
+                    getDBUser.postValue(boardWriter);
                 }
             }
         });
-        Log.v("listviewmodel","" + boardWriter.getUserEmail());
-        return boardWriter;
     }
 
 
@@ -55,6 +57,15 @@ public class BoardItemListViewModel extends ViewModel {
     public LiveData<Boolean> getDBBoard() {
         return getDBBoard;
     }
+
+    public LiveData<User> getDBUser() {
+        return getDBUser;
+    }
+
+    public void setGetDBUser(MutableLiveData<User> getDBUser) {
+        this.getDBUser = getDBUser;
+    }
+
     public ArrayList<Board> getBoardArrayList() {
         return boardArrayList;
     }

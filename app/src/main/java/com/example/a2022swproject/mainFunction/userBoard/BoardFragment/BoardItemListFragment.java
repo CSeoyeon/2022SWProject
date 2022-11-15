@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.a2022swproject.account.model.User;
 import com.example.a2022swproject.databinding.FragmentBoarditemlistBinding;
 import com.example.a2022swproject.mainFunction.userBoard.BoardModel.BoardRecycleViewAdapter;
 import com.example.a2022swproject.mainFunction.userBoard.BoardViewModel.BoardItemListViewModel;
@@ -46,15 +47,26 @@ public class BoardItemListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         boardItemListViewModel.getBoardList();
+        boardItemListViewModel.getUserInfo_VM();
+
         boardItemListViewModel.getDBBoard().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChanged(Boolean aBoolean) {
+
                 if(aBoolean){
-                    boardRecycleViewAdapter = new BoardRecycleViewAdapter(boardItemListViewModel.getBoardArrayList(), boardItemListViewModel.getUserInfo_VM(),  recyclerViewInterface);
-                    rv_boardView.setAdapter(boardRecycleViewAdapter);
-                    rv_boardView.setLayoutManager(new LinearLayoutManager(requireContext()));
-                    boardRecycleViewAdapter.notifyDataSetChanged();
+                    boardItemListViewModel.getDBUser().observe(getViewLifecycleOwner(), new Observer<User>() {
+                        @Override
+                        public void onChanged(User user) {
+                            boardRecycleViewAdapter = new BoardRecycleViewAdapter(boardItemListViewModel.getBoardArrayList(),  user,  recyclerViewInterface);
+                            rv_boardView.setAdapter(boardRecycleViewAdapter);
+                            rv_boardView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                            boardRecycleViewAdapter.notifyDataSetChanged();
+                        }
+                    });
+
+
 
                 }
             }

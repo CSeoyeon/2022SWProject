@@ -52,15 +52,16 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        String title = records.get(position).getTitle();
         String writerName = boardWriter.getUserName();
-        String ImgBitmap = records.get(position).getBoardImageByte();
+        String writerImgIcon = boardWriter.getUserImage();
+        String title = records.get(position).getTitle();
+        String boardImgBitmap = records.get(position).getBoardImageByte();
         Boolean furnitureTakingState = records.get(position).isTakeAFurniture();
 
-        Log.v("boardWriter", " "+ writerName);
-        holder.tv_title.setText(title);
         holder.tv_userName.setText(writerName);
-        holder.iv_boardImage.setImageBitmap(bitmapTypeCasting.stringToBitmap(ImgBitmap));
+        holder.iv_userIcon.setImageBitmap(bitmapTypeCasting.stringToBitmap(writerImgIcon));
+        holder.tv_title.setText(title);
+        holder.iv_boardImage.setImageBitmap(bitmapTypeCasting.stringToBitmap(boardImgBitmap));
 
         if(furnitureTakingState){
             holder.tv_furnitureTakingState.setText("완료된 글");
