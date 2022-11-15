@@ -11,18 +11,19 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_main"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.2022SWProject"
         tools:targetApi="31"
         >
         <activity
             android:name=".AccountActivity"
+            android:icon="@drawable/ic_main"
+            android:roundIcon="@mipmap/ic_launcher_round"
             android:exported="true"
             android:launchMode = "singleInstance"
-            android:label="2022swproject">
+            android:label="갖구가구">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
