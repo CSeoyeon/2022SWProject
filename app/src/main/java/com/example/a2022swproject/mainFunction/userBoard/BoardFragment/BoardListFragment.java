@@ -1,10 +1,10 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardFragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -25,6 +25,7 @@ public class BoardListFragment extends Fragment {
     private NavController navController;
     private BoardListViewModel boardListViewModel;
 
+    private Button bt_writingBoard;
     private FrameLayout frameLayout;
 
 
@@ -35,6 +36,7 @@ public class BoardListFragment extends Fragment {
         binding = FragmentBoardlistBinding.inflate(inflater, container, false);
         navController = NavHostFragment.findNavController(BoardListFragment.this);
 
+        bt_writingBoard = binding.boardListBtWritingBoard;
         frameLayout = binding.boardListFrameLayout;
 
         return binding.getRoot();
@@ -43,6 +45,13 @@ public class BoardListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        bt_writingBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navController.navigate(R.id.action_navigation_boardList_to_navigation_userBoard);
+            }
+        });
 
         //board list
         frameLayout.setVisibility(View.VISIBLE);

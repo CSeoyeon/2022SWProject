@@ -35,7 +35,11 @@
         android:id="@+id/navigation_boardList"
         android:name="com.example.a2022swproject.mainFunction.userBoard.BoardFragment.BoardListFragment"
         android:label="BoardList"
-        tools:layout="@layout/fragment_boardlist" />
+        tools:layout="@layout/fragment_boardlist" >
+        <action
+            android:id="@+id/action_navigation_boardList_to_navigation_userBoard"
+            app:destination="@id/navigation_userBoard" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_inputUserInformation"
