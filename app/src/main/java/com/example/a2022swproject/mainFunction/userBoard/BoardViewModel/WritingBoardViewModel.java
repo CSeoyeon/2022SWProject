@@ -27,7 +27,7 @@ public class WritingBoardViewModel extends ViewModel {
     private final MutableLiveData<Boolean> writingCompleted = new MutableLiveData<>(false);
 
     private MutableLiveData<Boolean> putImage = new MutableLiveData<>(false);
-    private MutableLiveData<Boolean> furniture = new MutableLiveData<>(false);
+    private MutableLiveData<String> furniture = new MutableLiveData<>("");
     private BitmapTypeCasting bitmapTypeCasting = new BitmapTypeCasting();
     private User user = new User();
 
@@ -39,11 +39,12 @@ public class WritingBoardViewModel extends ViewModel {
     public WritingBoardViewModel() {
     }
 
-    public void setBoard( String title, String latitude, String longitude, String address) {
+    public void setBoard( String title, String latitude, String longitude, String address, String furnitureType) {
         board.setTitle(title);
         board.setLatitude(latitude);
         board.setLongitude(longitude);
         board.setLocation(address);
+        board.setFurnitureType(furnitureType);
     }
 
     public void addBitmapFromBoard(Board board, String bitmapToString){
@@ -80,17 +81,16 @@ public class WritingBoardViewModel extends ViewModel {
     }
 
     public void getFurnitureType_MV() throws IOException {
-        if(furnitureType.equals("")){}
+
         boardRepository.getFurnitureType(new SingleCallBack<Result<String>>() {
             @Override
             public void onComplete(Result<String> result) {
                 if(result instanceof Result.Success){
                     furnitureType = ((Result.Success<String>) result).getData();
-                    furniture.postValue(true);
+                    furniture.postValue(furnitureType);
                 }
             }
         });
-
     }
 
 
@@ -110,7 +110,7 @@ public class WritingBoardViewModel extends ViewModel {
         return putImage;
     }
 
-    public LiveData<Boolean> getFurniture(){return furniture;}
+    public LiveData<String> getFurniture(){return furniture;}
 
     public String getFurnitureType(){
         return furnitureType;

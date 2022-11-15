@@ -73,13 +73,13 @@ public class WritingBoardFragment extends Fragment {
 
         tv_checkFurniture.setText("사진을 선택해주세요");
 
-        writingBoardViewModel.getFurniture().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        writingBoardViewModel.getFurniture().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
-            public void onChanged(Boolean aBoolean) {
+            public void onChanged(String s) {
                 try {
                     writingBoardViewModel.getFurnitureType_MV();
-                    tv_checkFurniture.setText(writingBoardViewModel.getFurnitureType());
-
+                    tv_checkFurniture.setText(s);
+                    Log.v("boardFragment", "Furniture type: " + s);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -87,7 +87,7 @@ public class WritingBoardFragment extends Fragment {
         });
 
 
-        Log.v("boardFragment", "Furniture type: " + writingBoardViewModel.getFurnitureType());
+
 
         //get String address
         bt_locationFind.setOnClickListener(new View.OnClickListener() {
@@ -139,8 +139,9 @@ public class WritingBoardFragment extends Fragment {
                 String latitude = String.valueOf(((MainActivity) getActivity()).getLatitude());
                 String longitude = String.valueOf(((MainActivity) getActivity()).getLongitude());
                 String address = ((MainActivity) getActivity()).getAddress();
+                String furnitureType = String.valueOf(tv_checkFurniture.getText());
 
-                writingBoardViewModel.setBoard(title, latitude, longitude, address);
+                writingBoardViewModel.setBoard(title, latitude, longitude, address, furnitureType);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     writingBoardViewModel.tryWriting(writingBoardViewModel.getBoard());
                 }

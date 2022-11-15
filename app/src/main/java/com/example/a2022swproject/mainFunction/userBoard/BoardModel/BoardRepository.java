@@ -103,7 +103,7 @@ public class BoardRepository {
         board.setWriterId(userRepository.getUserEmail());
         board.setWriterName(userRepository.getUserName());
         board.setBoardNumber(userRepository.getUserEmail() + "_"+ userRepository.getNumberOfPost());
-        board.setFurnitureType(furnitureType);
+
 
         //글 삽입
         boardRef.document(board.getBoardNumber())
