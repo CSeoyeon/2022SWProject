@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -32,6 +33,7 @@ import com.example.a2022swproject.MainActivity;
 import com.example.a2022swproject.R;
 import com.example.a2022swproject.databinding.FragmentWritingboardBinding;
 import com.example.a2022swproject.mainFunction.userBoard.BoardViewModel.WritingBoardViewModel;
+import com.naver.maps.map.overlay.Marker;
 
 import java.io.IOException;
 
@@ -40,6 +42,7 @@ public class WritingBoardFragment extends Fragment {
     private FragmentWritingboardBinding binding;
     private NavController navController;
     private WritingBoardViewModel writingBoardViewModel;
+
 
     private EditText et_title;
     private EditText et_location;
@@ -138,12 +141,19 @@ public class WritingBoardFragment extends Fragment {
                 String address = ((MainActivity) getActivity()).getAddress();
 
                 writingBoardViewModel.setBoard(title, latitude, longitude, address);
-                writingBoardViewModel.tryWriting(writingBoardViewModel.getBoard());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    writingBoardViewModel.tryWriting(writingBoardViewModel.getBoard());
+                }
+
 
                 writingBoardViewModel.getWritingComplete().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                     @Override
                     public void onChanged(Boolean aBoolean) {
-                        ((MainActivity) getActivity()).setMarker();
+
+                        ((MainActivity) getActivity()).setMarker(
+                                ((MainActivity) getActivity()).getLatitude(), ((MainActivity) getActivity()).getLongitude()
+                        );
+
                         navController.navigate(R.id.action_navigation_userBoard_to_navigation_boarList);
                     }
                 });

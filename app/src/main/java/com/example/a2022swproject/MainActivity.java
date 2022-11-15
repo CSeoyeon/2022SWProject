@@ -36,6 +36,7 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.io.IOException;
@@ -52,10 +53,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static final int PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
-
+    private Marker marker = new Marker();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getSupportActionBar();
@@ -77,8 +79,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
-
         mapView.getMapAsync(this);
+
         locationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
 
 
@@ -87,7 +89,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
 
-        this.naverMap = naverMap;
+        MainActivity.naverMap = naverMap;
+        naverMap.setMapType(NaverMap.MapType.Navi);
+        naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BUILDING, true);
         naverMap.setLocationSource(locationSource);
         naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
 
@@ -99,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 longitude = location.getLongitude();
             }
         });
+
     }
 
     public double getLatitude() {
@@ -125,10 +130,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return AddressToString(latitude, longitude);
     }
 
-    public void setMarker() {
-        Marker marker = new Marker();
+    public void setMarker( double latitude, double longitude) {
+
         marker.setPosition(new LatLng(latitude, longitude));
+        marker.setIcon(OverlayImage.fromResource(R.drawable.ic_main));
         marker.setMap(naverMap);
+        naverMap.setLocationSource(locationSource);
+
     }
 
 

@@ -1,11 +1,15 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardModel;
 
+import static android.content.ContentValues.TAG;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.CaptivePortal;
 import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.a2022swproject.account.model.UserRepository;
 import com.example.a2022swproject.mainFunction.Result;
@@ -17,7 +21,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.common.collect.ArrayTable;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
@@ -43,15 +50,10 @@ public class BoardRepository {
     private static BoardRepository INSTANCE = new BoardRepository();
 
     //firebasefirestore -> text, firebaseStorage ->image
-    private FirebaseFirestore boardStorage = FirebaseFirestore.getInstance();
+    private FirebaseFirestore foreStore = FirebaseFirestore.getInstance();
 
-    private FirebaseStorage itemStorage = FirebaseStorage.getInstance();
-    private StorageReference itemRef = itemStorage.getReference().child("item");
-
-    private FirebaseStorage boardImageStorage = FirebaseStorage.getInstance();
-    private StorageReference boardImagesRef = boardImageStorage.getReference().child("boardImages");
-
-    private CollectionReference boardRef = boardStorage.collection("board");
+    private CollectionReference imageRef = foreStore.collection("tmpImage");
+    private CollectionReference boardRef = foreStore.collection("board");
 
     UserRepository userRepository = UserRepository.getInstance();
 
@@ -68,34 +70,30 @@ public class BoardRepository {
     private String boardImageByte;
 
     //이미지 삽입
-    public void writingBoardImg(Bitmap imgBitmap, SingleCallBack<Result<Board>> callback){
+    public void writingBoardImg(String boardImageByteString, SingleCallBack<Result<Board>> callback){
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] data = baos.toByteArray();
+        UploadImageSet uploadImageSet = new UploadImageSet();
 
-        String boardNumber = userRepository.getUserEmail()+ "_"+
+        uploadImageSet.setImageBitmaptoString(boardImageByteString);
+        uploadImageSet.setResult("");
+
+        String boardNumber = userRepository.getUserEmail() + "_" +
                 userRepository.getNumberOfPost();
 
-        //storage upload - image
-        StorageReference uploadRef = itemRef.child(boardNumber+  ".jpg");
-        UploadTask uploadTask = uploadRef.putBytes(data);
 
-        //board number 갱신
-        setCurrentBoardNumber(boardNumber);
+        //후에 document 주소값 boardnumber로 수정
+        imageRef.document("tmp")
+                .set(uploadImageSet)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            callback.onComplete(new Result.Success<String>(boardImageByteString));
+                            Log.v("BoardRepository", " : tmpImage Upload Success ");
+                        }
+                    }
+                });
 
-
-
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-            }
-        });
     }
 
 
@@ -127,42 +125,28 @@ public class BoardRepository {
     }
 
     public void getFurnitureType(SingleCallBack<Result<String>> callBack) throws IOException {
-        String txtName = getCurrentBoardNumber();
+        String boardNumber = userRepository.getUserEmail() + "_" +
+                userRepository.getNumberOfPost();
 
-        StorageReference typeTextRef;
-        if(!txtName.equals("")){
-            Log.v("BoardRepository", "currentBoardNumber: "+ txtName +".txt" );
-            typeTextRef = boardImagesRef.child(txtName+".txt");
-        }
-        else{
-            typeTextRef = boardImagesRef.child("tmp.txt");
-        }
-
-        File localFile = File.createTempFile("tmp", "txt");
-
-        typeTextRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+        //후에 document 주소값 boardnumber로 수정
+        imageRef.document("tmp").addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                try {
-                    BufferedReader br = new BufferedReader(new FileReader(localFile));
-                    String line = br.readLine();
-                    Log.v("boardRepository", "Furniture type: " +line);
-                    setFurnitureType(line);
-                    callBack.onComplete(new Result.Success<String>(line));
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
 
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.w(TAG, "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    callBack.onComplete(new Result.Success<String>((String) snapshot.get("result")));
+                    Log.d(TAG, "Current data: " + snapshot.get("result"));
+                } else {
+                    Log.d(TAG, "Current data: null");
                 }
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
-            }
         });
-
     }
 
 

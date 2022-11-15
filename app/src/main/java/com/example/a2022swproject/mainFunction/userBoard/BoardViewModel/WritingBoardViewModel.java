@@ -67,14 +67,16 @@ public class WritingBoardViewModel extends ViewModel {
     }
     
     public void tryWritingImg(){
-        boardRepository.writingBoardImg(imgBitmap, new SingleCallBack<Result<Board>>() {
-            @Override
-            public void onComplete(Result<Board> result) {
-                if(result instanceof Result.Success){
-                    putImage.postValue(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            boardRepository.writingBoardImg(bitmapTypeCasting.bitmapToString(imgBitmap), new SingleCallBack<Result<Board>>() {
+                @Override
+                public void onComplete(Result<Board> result) {
+                    if(result instanceof Result.Success){
+                        putImage.postValue(true);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     public void getFurnitureType_MV() throws IOException {
