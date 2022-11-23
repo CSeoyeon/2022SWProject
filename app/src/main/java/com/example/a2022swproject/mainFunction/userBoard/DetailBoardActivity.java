@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.a2022swproject.CodeDetailFunction.BitmapTypeCasting;
 import com.example.a2022swproject.R;
+import com.example.a2022swproject.account.model.UserRepository;
 import com.example.a2022swproject.databinding.ActivityDetailboardBinding;
 import com.example.a2022swproject.mainFunction.Result;
 import com.example.a2022swproject.mainFunction.SingleCallBack;
@@ -43,8 +44,6 @@ import java.util.Base64;
 public class DetailBoardActivity extends AppCompatActivity {
 
     private ActivityDetailboardBinding binding;
-    private FirebaseFirestore boardStorage = FirebaseFirestore.getInstance();
-    private CollectionReference boardRef = boardStorage.collection("board");
 
     private BoardRepository boardRepository = BoardRepository.getInstance();
     private BitmapTypeCasting bitmapTypeCasting = new BitmapTypeCasting();
@@ -121,6 +120,7 @@ public class DetailBoardActivity extends AppCompatActivity {
                     public void onComplete(Result<Boolean> result) {
 
                         if (result instanceof Result.Success) {
+                            boardRepository.setFurnitureTaker(boardNumber, UserRepository.getInstance().getUserEmail());
 
                             FragmentManager fragmentManager = getSupportFragmentManager();
                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

@@ -7,15 +7,19 @@ import androidx.annotation.NonNull;
 public class Board {
 
     private String boardNumber;
-    private String writerId;
 
+    private String writerId;
     private String writerName;
+
     private String title;
     private String latitude;
     private String longitude;
     private String location;
-    private String furnitureType = "checking Furniture";
+
     private String boardImageByte;
+
+    private String furnitureType;
+    private String furnitureTaker;
     private boolean takeAFurniture = false;
 
     public Board(){}
@@ -100,16 +104,12 @@ public class Board {
         this.takeAFurniture = takeAFurniture;
     }
 
-
-
-    @NonNull
-    @Override
-    public String toString() {
-        return "Board{" +
-                "BoardNumber=" + boardNumber +"/n" + ","+
-                "writerId=" + writerId +"/n" + ","+
-                "title=" + title +"/n" + ","+
-                "latitude=" +latitude +"/n" + ","+
-                "longitude=" + longitude;
+    public String getFurnitureTaker() {
+        return furnitureTaker;
     }
+
+    public void setFurnitureTaker(String furnitureTaker) {
+        this.furnitureTaker = furnitureTaker;
+    }
+
 }

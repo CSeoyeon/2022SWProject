@@ -1,4 +1,4 @@
-package com.example.a2022swproject.account.model;
+package com.example.a2022swproject.account.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 

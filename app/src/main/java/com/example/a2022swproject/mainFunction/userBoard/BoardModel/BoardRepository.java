@@ -198,6 +198,7 @@ public class BoardRepository {
                 });
     }
 
+    //detailBoardActivity - furniture State
     public void setBoardTakingState(String boardNumber, SingleCallBack<Result<Boolean>> callBack){
         DocumentReference documentReference = boardRef.document(boardNumber);
         documentReference.update("takeAFurniture", true)
@@ -210,6 +211,17 @@ public class BoardRepository {
 
     }
 
+    //detailBoardActivity - set furniture Taker
+    public void setFurnitureTaker(String boardNumber, String takerID){
+        DocumentReference documentReference = boardRef.document(boardNumber);
+        documentReference.update("furnitureTaker", takerID)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
+    }
 
 
     public String getCurrentBoardNumber() {

@@ -1,5 +1,6 @@
 package com.example.a2022swproject.mainFunction.userInformation.UserInformationFragment;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.a2022swproject.AccountActivity;
 import com.example.a2022swproject.R;
 import com.example.a2022swproject.databinding.FragmentUserinformationBinding;
 import com.example.a2022swproject.mainFunction.userInformation.UserInformationViewModel.UserInformationViewModel;
@@ -44,6 +46,11 @@ public class UserInformationFragment extends Fragment {
         binding = FragmentUserinformationBinding.inflate(inflater, container, false);
         navController = NavHostFragment.findNavController(UserInformationFragment.this);
         View root = binding.getRoot();
+
+        if(userInformationViewModel.getIngUser() == null){
+            Intent intent = new Intent(getActivity(), AccountActivity.class);
+            startActivity(intent);
+        }
 
         imgView_userIcon = binding.userInformationIvUserPicture;
         tv_userName = binding.userInformationTvUserName;

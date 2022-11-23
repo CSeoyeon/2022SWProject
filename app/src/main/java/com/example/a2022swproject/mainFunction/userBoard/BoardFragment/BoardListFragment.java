@@ -1,5 +1,6 @@
 package com.example.a2022swproject.mainFunction.userBoard.BoardFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.a2022swproject.AccountActivity;
 import com.example.a2022swproject.R;
 import com.example.a2022swproject.databinding.FragmentBoardlistBinding;
 import com.example.a2022swproject.mainFunction.userBoard.BoardViewModel.BoardListViewModel;
@@ -35,6 +37,12 @@ public class BoardListFragment extends Fragment {
         boardListViewModel = new ViewModelProvider(this).get(BoardListViewModel.class);
         binding = FragmentBoardlistBinding.inflate(inflater, container, false);
         navController = NavHostFragment.findNavController(BoardListFragment.this);
+
+        if(boardListViewModel.getUser() == null ){
+            Intent intent = new Intent(getActivity(), AccountActivity.class);
+            startActivity(intent);
+        }
+
 
         bt_writingBoard = binding.boardListBtWritingBoard;
         frameLayout = binding.boardListFrameLayout;

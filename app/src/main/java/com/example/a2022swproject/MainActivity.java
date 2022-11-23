@@ -104,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        marker.setPosition(new LatLng(latitude, longitude));
+
+
+
     }
 
     public double getLatitude() {
