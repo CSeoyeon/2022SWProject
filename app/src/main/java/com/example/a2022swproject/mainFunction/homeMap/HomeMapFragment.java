@@ -16,18 +16,17 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.a2022swproject.R;
 import com.example.a2022swproject.databinding.FragmentHomemapBinding;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
-import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
-import com.naver.maps.map.overlay.Overlay;
+import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class HomeMapFragment extends Fragment implements OnMapReadyCallback {
@@ -115,6 +114,7 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback {
                 Log.v("마커 위도", " " +markerLatitude);
                 Log.v("마커 경도", " " +markerLongitude);
 
+                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_chair));
                 marker.setPosition(new LatLng(markerLatitude, markerLongitude));
                 marker.setMap(naverMap);
 
