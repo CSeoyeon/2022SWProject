@@ -90,6 +90,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull NaverMap naverMap) {
 
         MainActivity.naverMap = naverMap;
+
+
+        UiSettings currentLocation = naverMap.getUiSettings();
+
         naverMap.setMapType(NaverMap.MapType.Navi);
         naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BUILDING, true);
         naverMap.setLocationSource(locationSource);
@@ -104,8 +108,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        marker.setPosition(new LatLng(latitude, longitude));
-
+        Marker marker = new Marker();
+        marker.setPosition(new LatLng(36.8000, 127.0771));
+        marker.setMap(naverMap);
 
 
     }
