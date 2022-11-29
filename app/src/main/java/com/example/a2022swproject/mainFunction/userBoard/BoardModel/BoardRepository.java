@@ -61,6 +61,10 @@ public class BoardRepository {
 
     private String currentBoardNumber = "";
 
+    private ArrayList<Double> latitude = new ArrayList<>();
+    private ArrayList<Double> longitude = new ArrayList<>();
+
+
     public static BoardRepository getInstance(){return INSTANCE;}
 
     //이미지 삽입
@@ -124,6 +128,8 @@ public class BoardRepository {
         board.setWriterName(userRepository.getUserName());
         board.setBoardNumber(userRepository.getUserEmail() + "_"+ userRepository.getNumberOfPost());
 
+        latitude.add(Double.parseDouble(board.getLatitude()));
+        longitude.add(Double.parseDouble(board.getLongitude()));
 
         //글 삽입
         boardRef.document(board.getBoardNumber())
@@ -231,6 +237,16 @@ public class BoardRepository {
     public void setCurrentBoardNumber(String currentBoardNumber) {
         this.currentBoardNumber = currentBoardNumber;
     }
+
+
+    public ArrayList<Double> getLatitude() {
+        return latitude;
+    }
+
+    public ArrayList<Double> getLongitude() {
+        return longitude;
+    }
+
 
 }
 

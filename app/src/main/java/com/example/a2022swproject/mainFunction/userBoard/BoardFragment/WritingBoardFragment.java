@@ -152,7 +152,8 @@ public class WritingBoardFragment extends Fragment {
                     public void onChanged(Boolean aBoolean) {
 
                         ((MainActivity) getActivity()).setMarker(
-                                ((MainActivity) getActivity()).getLatitude(), ((MainActivity) getActivity()).getLongitude()
+                                ((MainActivity) getActivity()).getLatitude(), ((MainActivity) getActivity()).getLongitude(),
+                                R.drawable.ic_main
                         );
 
                         navController.navigate(R.id.action_navigation_userBoard_to_navigation_boarList);
