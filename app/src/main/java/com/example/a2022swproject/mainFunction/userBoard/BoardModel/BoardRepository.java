@@ -61,9 +61,7 @@ public class BoardRepository {
 
     private String currentBoardNumber = "";
 
-    private ArrayList<Double> latitude = new ArrayList<>();
-    private ArrayList<Double> longitude = new ArrayList<>();
-
+    MarkerInformation markerInformation = new MarkerInformation();
 
     public static BoardRepository getInstance(){return INSTANCE;}
 
@@ -128,8 +126,10 @@ public class BoardRepository {
         board.setWriterName(userRepository.getUserName());
         board.setBoardNumber(userRepository.getUserEmail() + "_"+ userRepository.getNumberOfPost());
 
-        latitude.add(Double.parseDouble(board.getLatitude()));
-        longitude.add(Double.parseDouble(board.getLongitude()));
+        markerInformation.setLatitude(Double.parseDouble(board.getLatitude()));
+        markerInformation.setLongitude(Double.parseDouble(board.getLongitude()));
+        //latitude.add(Double.parseDouble(board.getLatitude()));
+        //longitude.add(Double.parseDouble(board.getLongitude()));
 
         //글 삽입
         boardRef.document(board.getBoardNumber())
@@ -238,14 +238,10 @@ public class BoardRepository {
         this.currentBoardNumber = currentBoardNumber;
     }
 
-
-    public ArrayList<Double> getLatitude() {
-        return latitude;
+    public MarkerInformation getMarkerInformation() {
+        return markerInformation;
     }
 
-    public ArrayList<Double> getLongitude() {
-        return longitude;
-    }
 
 
 }

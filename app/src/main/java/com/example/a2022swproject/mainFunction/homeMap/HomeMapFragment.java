@@ -65,9 +65,8 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback {
         mapView.getMapAsync(this);
 
 
-        return  binding.getRoot();
+        return binding.getRoot();
     }
-
 
 
     @Override
@@ -101,28 +100,37 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback {
         });
 
 
-        homeMapViewModel.getMarkerLocation();
+        //homeMapViewModel.getMarkerLocation();
+        homeMapViewModel.registerMarkerInformation();
 
+        marker = new Marker();
+        double markerLatitude = homeMapViewModel.registerMarkerInformation().getLatitude();
+        double markerLongitude = homeMapViewModel.registerMarkerInformation().getLongitude();
 
-        if(homeMapViewModel != null){
+        Log.v("마커 위도", " " + markerLatitude);
+        Log.v("마커 경도", " " + markerLongitude);
 
-            for(Map.Entry<Double, Double> x : homeMapViewModel.getMarkerLocation().entrySet()){
-                marker = new Marker();
-                double markerLatitude =  x.getKey();
-                double markerLongitude = x.getValue();
-
-                Log.v("마커 위도", " " +markerLatitude);
-                Log.v("마커 경도", " " +markerLongitude);
-
+        switch (homeMapViewModel.registerMarkerInformation().getFurnitureType()) {
+            case "chair":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_chair));
+            case "desk":
+                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_desk));
+            case "refrigerator":
+                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_refrigerator));
+            case "sofa":
+                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_sofa));
+            case "vase":
+                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_vase));
+            case "wave":
+                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_wave));
+            case "bed":
+                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_bed));
+
+            default:
                 marker.setPosition(new LatLng(markerLatitude, markerLongitude));
                 marker.setMap(naverMap);
-
-            }
-
-
         }
-        else{;}
+
 
         //marker.setPosition(new LatLng(36.8000, 127.0771));
         //marker.setMap(naverMap);
