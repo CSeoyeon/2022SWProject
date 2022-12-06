@@ -2,12 +2,14 @@ package com.example.a2022swproject.mainFunction.homeMap;
 
 import static java.lang.String.valueOf;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +20,14 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.a2022swproject.R;
 import com.example.a2022swproject.databinding.FragmentHomemapBinding;
+import com.example.a2022swproject.mainFunction.userBoard.DetailBoardActivity;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapView;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
@@ -99,41 +103,71 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-
-        //homeMapViewModel.getMarkerLocation();
-        homeMapViewModel.registerMarkerInformation();
-
         marker = new Marker();
         double markerLatitude = homeMapViewModel.registerMarkerInformation().getLatitude();
         double markerLongitude = homeMapViewModel.registerMarkerInformation().getLongitude();
 
         Log.v("마커 위도", " " + markerLatitude);
         Log.v("마커 경도", " " + markerLongitude);
+        String furnitureType = homeMapViewModel.registerMarkerInformation().getFurnitureType();
 
-        switch (homeMapViewModel.registerMarkerInformation().getFurnitureType()) {
+        switch (furnitureType) {
             case "chair":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_chair));
+                break;
             case "desk":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_desk));
+                break;
             case "refrigerator":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_refrigerator));
+                break;
             case "sofa":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_sofa));
+                break;
             case "vase":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_vase));
+                break;
             case "wave":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_wave));
+                break;
             case "bed":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_bed));
+                break;
 
-            default:
-                marker.setPosition(new LatLng(markerLatitude, markerLongitude));
-                marker.setMap(naverMap);
+        }
+        marker.setPosition(new LatLng(markerLatitude, markerLongitude));
+        marker.setMap(naverMap);
+
+        if(marker != null){
+
+            marker.setOnClickListener(new Overlay.OnClickListener() {
+                @Override
+                public boolean onClick(@NonNull Overlay overlay) {
+                    Log.v("marker button clicked","");
+
+                    Intent intent = new Intent(getContext(), DetailBoardActivity.class);
+                    Bundle bundle = new Bundle();
+
+                    bundle.putString("furniture", homeMapViewModel.registerMarkerInformation().getFurnitureType());
+
+                    bundle.putString("boardNumber", homeMapViewModel.registerMarkerInformation().getBoardNumber());
+                    bundle.putString("Title", homeMapViewModel.registerMarkerInformation().getTitle());
+                    bundle.putString("location", homeMapViewModel.registerMarkerInformation().getLocation());
+
+                    intent.putExtras(bundle);
+
+
+                    startActivity(intent);
+
+                    return false;
+                }
+            });
+
+
         }
 
 
-        //marker.setPosition(new LatLng(36.8000, 127.0771));
-        //marker.setMap(naverMap);
+
     }
 
 

@@ -103,7 +103,6 @@ public class BoardRepository {
             public void onEvent(@Nullable DocumentSnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-
                     Log.w(TAG, "Listen failed.", e);
                     return;
                 }
@@ -128,6 +127,11 @@ public class BoardRepository {
 
         markerInformation.setLatitude(Double.parseDouble(board.getLatitude()));
         markerInformation.setLongitude(Double.parseDouble(board.getLongitude()));
+        markerInformation.setFurnitureType(board.getFurnitureType());
+        markerInformation.setTitle(board.getTitle());
+        markerInformation.setBoardNumber(board.getBoardNumber());
+        markerInformation.setLocation(board.getLocation());
+
         //latitude.add(Double.parseDouble(board.getLatitude()));
         //longitude.add(Double.parseDouble(board.getLongitude()));
 

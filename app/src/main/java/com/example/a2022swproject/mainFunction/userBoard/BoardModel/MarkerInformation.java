@@ -4,7 +4,10 @@ public class MarkerInformation {
 
     private double latitude;
     private double longitude;
-    private String furnitureType;
+    private String furnitureType = "";
+    private String title = "";
+    private String boardNumber = "";
+    private String location ="";
 
     public MarkerInformation() {
     }
@@ -31,5 +34,29 @@ public class MarkerInformation {
 
     public void setFurnitureType(String furnitureType) {
         this.furnitureType = furnitureType;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getBoardNumber() {
+        return boardNumber;
+    }
+
+    public void setBoardNumber(String boardNumber) {
+        this.boardNumber = boardNumber;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
