@@ -112,27 +112,24 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback {
         String furnitureType = homeMapViewModel.registerMarkerInformation().getFurnitureType();
 
         switch (furnitureType) {
-            case "chair":
+            case "의자":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_chair));
                 break;
-            case "desk":
+            case "책상":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_desk));
                 break;
-            case "refrigerator":
-                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_refrigerator));
-                break;
-            case "sofa":
+            case "소파":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_sofa));
                 break;
-            case "vase":
-                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_vase));
-                break;
-            case "wave":
-                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_wave));
-                break;
-            case "bed":
+            case "침대":
                 marker.setIcon(OverlayImage.fromResource(R.drawable.marker_bed));
                 break;
+            case "벤치":
+                marker.setIcon(OverlayImage.fromResource(R.drawable.marker_bench));
+                break;
+
+
+
 
         }
         marker.setPosition(new LatLng(markerLatitude, markerLongitude));
