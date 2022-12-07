@@ -86,7 +86,7 @@ public class BoardRecycleViewAdapter extends Adapter<BoardRecycleViewAdapter.Vie
 
         public ViewHolder(@NonNull ObjectBoarditemBinding binding, RecyclerViewInterface recyclerViewInterface) {
             super(binding.getRoot());
-            iv_userIcon = binding.boardItemIvUserIcon;
+            iv_userIcon = binding.boardItemIvUserImage;
             tv_userName = binding.boardItemTvUserName;
             tv_title = binding.boardItemTvTitle;
             tv_furnitureTakingState = binding.boardItemTvFurnitureTakingState;

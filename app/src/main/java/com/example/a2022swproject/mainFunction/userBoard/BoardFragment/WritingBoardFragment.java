@@ -78,7 +78,28 @@ public class WritingBoardFragment extends Fragment {
             public void onChanged(String s) {
                 try {
                     writingBoardViewModel.getFurnitureType_MV();
-                    tv_checkFurniture.setText(s);
+
+                    switch (s){
+                        case "chair":
+                            tv_checkFurniture.setText("의자");
+                            break;
+                        case "desk":
+                            tv_checkFurniture.setText("책상");
+                            break;
+                        case "sofa":
+                            tv_checkFurniture.setText("소파");
+                            break;
+                        case "bed":
+                            tv_checkFurniture.setText("침대");
+                            break;
+                        case "bench":
+                            tv_checkFurniture.setText("벤치");
+                            break;
+                        default:
+                            tv_checkFurniture.setText(s);
+                    }
+
+
                     Log.v("boardFragment", "Furniture type: " + s);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -113,7 +134,7 @@ public class WritingBoardFragment extends Fragment {
                             writingBoardViewModel.setImgBitmap(((BitmapDrawable) imgBtn_addImg.getDrawable()).getBitmap());
                             imgBtn_addImg.invalidate();
 
-                            //가구 들어가서 파일 확인 및 textview 수정
+                            //DB - image upload
                             writingBoardViewModel.tryWritingImg();
 
                         }
@@ -152,7 +173,8 @@ public class WritingBoardFragment extends Fragment {
                     public void onChanged(Boolean aBoolean) {
 
                         ((MainActivity) getActivity()).setMarker(
-                                ((MainActivity) getActivity()).getLatitude(), ((MainActivity) getActivity()).getLongitude()
+                                ((MainActivity) getActivity()).getLatitude(), ((MainActivity) getActivity()).getLongitude(),
+                                R.drawable.ic_main
                         );
 
                         navController.navigate(R.id.action_navigation_userBoard_to_navigation_boarList);

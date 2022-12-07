@@ -49,6 +49,9 @@ public class UserInformationViewModel extends ViewModel {
         return bitmapTypeCasting.stringToBitmap(imgString);
     }
 
+    public String getIngUser(){
+        return userRepository.getUserEmail();
+    }
 
     public String getUserEmail(){
         return userRepository.getUserEmail();

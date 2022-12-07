@@ -19,8 +19,8 @@
         >
         <activity
             android:name=".TitleActivity"
-            android:icon="@drawable/ic_main"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:icon="@mipmap/ic_main"
+            android:roundIcon="@mipmap/ic_main_round"
             android:exported="true"
             android:launchMode = "singleInstance"
             android:label="갖구가구">
@@ -30,8 +30,8 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".AccountActivity"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".AccountActivity"/>
         <activity android:name=".mainFunction.userBoard.DetailBoardActivity"/>
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

@@ -61,6 +61,8 @@ public class BoardRepository {
 
     private String currentBoardNumber = "";
 
+    MarkerInformation markerInformation = new MarkerInformation();
+
     public static BoardRepository getInstance(){return INSTANCE;}
 
     //이미지 삽입
@@ -101,7 +103,6 @@ public class BoardRepository {
             public void onEvent(@Nullable DocumentSnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-
                     Log.w(TAG, "Listen failed.", e);
                     return;
                 }
@@ -124,6 +125,15 @@ public class BoardRepository {
         board.setWriterName(userRepository.getUserName());
         board.setBoardNumber(userRepository.getUserEmail() + "_"+ userRepository.getNumberOfPost());
 
+        markerInformation.setLatitude(Double.parseDouble(board.getLatitude()));
+        markerInformation.setLongitude(Double.parseDouble(board.getLongitude()));
+        markerInformation.setFurnitureType(board.getFurnitureType());
+        markerInformation.setTitle(board.getTitle());
+        markerInformation.setBoardNumber(board.getBoardNumber());
+        markerInformation.setLocation(board.getLocation());
+
+        //latitude.add(Double.parseDouble(board.getLatitude()));
+        //longitude.add(Double.parseDouble(board.getLongitude()));
 
         //글 삽입
         boardRef.document(board.getBoardNumber())
@@ -198,6 +208,7 @@ public class BoardRepository {
                 });
     }
 
+    //detailBoardActivity - furniture State
     public void setBoardTakingState(String boardNumber, SingleCallBack<Result<Boolean>> callBack){
         DocumentReference documentReference = boardRef.document(boardNumber);
         documentReference.update("takeAFurniture", true)
@@ -210,6 +221,17 @@ public class BoardRepository {
 
     }
 
+    //detailBoardActivity - set furniture Taker
+    public void setFurnitureTaker(String boardNumber, String takerID){
+        DocumentReference documentReference = boardRef.document(boardNumber);
+        documentReference.update("furnitureTaker", takerID)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
+    }
 
 
     public String getCurrentBoardNumber() {
@@ -219,6 +241,12 @@ public class BoardRepository {
     public void setCurrentBoardNumber(String currentBoardNumber) {
         this.currentBoardNumber = currentBoardNumber;
     }
+
+    public MarkerInformation getMarkerInformation() {
+        return markerInformation;
+    }
+
+
 
 }
 

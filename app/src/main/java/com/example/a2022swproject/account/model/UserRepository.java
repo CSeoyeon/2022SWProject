@@ -37,7 +37,6 @@ public class UserRepository {
     private static UserRepository INSTANCE = new UserRepository();
 
     private FirebaseFirestore userStorage = FirebaseFirestore.getInstance();
-    private FirebaseStorage userIconImgStorage = FirebaseStorage.getInstance();
     private CollectionReference usersRef = userStorage.collection("user");
 
     private User currUser;

@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.a2022swproject.account.model.FindAPasswordViewModel;
+import com.example.a2022swproject.account.viewmodel.FindAPasswordViewModel;
 import com.example.a2022swproject.databinding.FragmentFindapasswordBinding;
 
 public class FindAPasswordFragment extends Fragment {

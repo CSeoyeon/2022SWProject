@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private MapView mapView;
     private static NaverMap naverMap;
-    private static double latitude, longitude;
+    private double latitude, longitude;
     private String address = "현재 위치를 받아 오지 못하였습니다.";
 
     private static final int PERMISSION_REQUEST_CODE = 1000;
@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull NaverMap naverMap) {
 
         MainActivity.naverMap = naverMap;
+
         naverMap.setMapType(NaverMap.MapType.Navi);
         naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_BUILDING, true);
         naverMap.setLocationSource(locationSource);
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onLocationChange(@NonNull Location location) {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
+
             }
         });
 
@@ -130,12 +132,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return AddressToString(latitude, longitude);
     }
 
-    public void setMarker( double latitude, double longitude) {
-
+    public void setMarker( double latitude, double longitude, int resourceID) {
         marker.setPosition(new LatLng(latitude, longitude));
-        marker.setIcon(OverlayImage.fromResource(R.drawable.ic_main));
+        marker.setIcon(OverlayImage.fromResource(resourceID));
         marker.setMap(naverMap);
-        naverMap.setLocationSource(locationSource);
 
     }
 
@@ -166,18 +166,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return true;
     }
 
- /*   @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        BoardListFragment boardListFragment = new BoardListFragment();
-        switch(item.getItemId()){
-            case R.id.navigation_boardList:
-                transaction.replace(R.id.nav_host_fragment_activity_main, boardListFragment).commit();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @Override
     public void onStart() {
