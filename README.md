@@ -4,6 +4,8 @@
 사용 언어: java(애플리케이션 개발) <br>
 사용 도구: firebase(DB), android studio(IDE) <br> 
 맡은 역할: 안드로이드 애플리케이션 개발 <br>
+etc: mvvm패턴 기반, 싱글톤 사용, DB에 변경된 값을 확인할 때 옵저버 패턴 이용 <br>
+
 <br>
 
 주 기능: <br>
